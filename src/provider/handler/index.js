@@ -1,14 +1,13 @@
 import { commands } from './comands';
 
-export const handler = (providerInterface) => (params) => {
-  const { type, id } = params;
+export const handler = nativeBridge => params => {
+  const { type } = params;
 
   if (!type || ['collection', 'item'].indexOf(type) == -1) {
-    return providerInterface.throwError('unknown request');
+    return nativeBridge.throwError('unknown request');
   }
 
   return commands[type](params)
-    .then(providerInterface.sendResponse)
-    .catch(providerInterface.throwError);
-
+    .then(nativeBridge.sendResponse)
+    .catch(nativeBridge.throwError);
 };

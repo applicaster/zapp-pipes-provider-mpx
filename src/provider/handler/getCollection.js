@@ -1,13 +1,14 @@
+import axios from 'axios';
 
 export function getCollection(params) {
-  const { id } = params;
+  const { url } = params;
 
-  if (id) {
-    return Promise.resolve({ collection: {}, id });
+  if (url) {
+    return axios
+      .get(url)
+      .then(response => response.data)
+      .then(items => ({ items }));
   }
 
-  return Promise.resolve({
-    collections: ['array', 'of', 'collections'],
-  });
-
-};
+  return Promise.reject('no url passed');
+}
