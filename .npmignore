@@ -76,3 +76,15 @@ jspm_packages
 
 # build folder
 
+# test folder
+__test__
+
+## babel
+.babelrc
+
+
+## webpack
+webpack.config.js
+
+## ignore files
+.gitignore
