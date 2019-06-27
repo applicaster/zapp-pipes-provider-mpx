@@ -76,3 +76,8 @@ jspm_packages
 lib
 .atom
 .idea
+
+
+# Docker
+docker/
+docker-compose.yml

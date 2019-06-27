@@ -88,3 +88,7 @@ webpack.config.js
 
 ## ignore files
 .gitignore
+
+## Docker
+docker/
+docker-compose.yml
