@@ -3,6 +3,9 @@ const provider = require('./src');
 
 const zappPipesServer = zappPipesDevKit.createZappPipesServer({
   providers: [provider],
+  options: {
+    host: '0.0.0.0'
+  }
 });
 
 zappPipesServer.route({
