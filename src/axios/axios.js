@@ -1,10 +1,6 @@
 import axiosBase from 'axios';
-import {config} from "../config/index";
-import {successHandler} from "./handler";
-import {handler} from "./handler";
+import {successHandler, handler} from './handler';
 
-export const axios = axiosBase.create({
-  baseURL: config.MPX.API_BASE_URL
-});
+export const axios = axiosBase.create();
 
 axios.interceptors.response.use(successHandler, handler);

@@ -9,7 +9,7 @@ export async function getEpisode() {
       data: {
         entries: items = []
       }
-    } = await axios.get(config.MPX.ENDPOINTS.episode);
+    } = await axios.get(`${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.episode}`);
     return {
       type: {
         value: types.feed

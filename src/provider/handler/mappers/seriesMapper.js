@@ -6,8 +6,8 @@ export function mapSeries(series) {
   const {
     id,
     title,
-    updated: updated_at,
-    pubDate: published_at,
+    updated: updatedAt,
+    pubDate: publishedAt,
     description,
     credits,
     tags,
@@ -16,11 +16,12 @@ export function mapSeries(series) {
     thumbnails: images
   } = series;
 
-  const published = convertDate(published_at, 'LL');
-  const updated = convertDate(updated_at);
+  const published = convertDate(publishedAt, 'LL');
+  const updated = convertDate(updatedAt);
 
-  const genre = tags.filter(function (item) {
-    return item['scheme'] === 'Genre';
+  const genre = tags.filter( item => {
+    const {scheme} = item;
+    return scheme === 'Genre';
   });
 
   const metadata = {
@@ -35,6 +36,8 @@ export function mapSeries(series) {
     genre,
     credits,
   };
+
+  // return series;
 
   return createEntry(types.feed, {
     id,

@@ -6,12 +6,11 @@ import {types} from '../../types';
 export async function getSeries() {
 
   try {
-    debugger;
     const {
       data: {
         entries: items = []
       }
-    } = await axios.get(config.MPX.ENDPOINTS.series);
+    } = await axios.get(`${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.series}`);
     return {
       type: {
         value: types.feed

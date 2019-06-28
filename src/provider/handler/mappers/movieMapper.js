@@ -6,15 +6,15 @@ export function mapMovie(movie) {
   const {
     id,
     title,
-    updated: updated_at,
-    pubDate: published_at,
+    updated: updatedAt,
+    pubDate: publishedAt,
     description,
     credits,
     tags,
     media: [
       {
         publicUrl: src,
-        availableDate: available_date
+        availableDate: availableAtDate
       }
     ],
     distributionRightIds,
@@ -22,12 +22,13 @@ export function mapMovie(movie) {
     thumbnails: images
   } = movie;
 
-  const published = convertDate(published_at, 'LL');
-  const updated = convertDate(updated_at);
-  const availableDate = convertDate(available_date);
+  const published = convertDate(publishedAt, 'LL');
+  const updated = convertDate(updatedAt);
+  const availableDate = convertDate(availableAtDate);
 
-  const genre = tags.filter(function (item) {
-    return item['scheme'] === 'Genre'
+  const genre = tags.filter( item => {
+    const {scheme} = item;
+    return scheme === 'Genre';
   });
 
   const media = {

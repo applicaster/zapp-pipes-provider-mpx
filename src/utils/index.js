@@ -1,18 +1,24 @@
-import moment from "moment/moment";
-import {config} from "../config";
-import {types} from "../types";
+import moment from 'moment/moment';
+import {parse as urlparse} from 'url';
+import {config} from '../config';
+import {types} from '../types';
 
 export function createMediaGroupItem(images) {
 
   if (images === undefined || images === null) {
     return undefined;
   }
+
   const imagesKeys = Object.keys(images);
 
   return imagesKeys.map(imageKey => {
 
-    const width = images[imageKey]['width'];
-    const height = images[imageKey]['height'];
+    const {
+      width,
+      height,
+      url
+    } = images[imageKey];
+
     const key = `image_${width}_x_${height}`;
 
     return {
@@ -20,7 +26,7 @@ export function createMediaGroupItem(images) {
       media_item: [
         {
           type: types.image,
-          src: images[imageKey]['url'],
+          src: url,
           key:
             width === config.IMAGE.baseWidth
             && height === config.IMAGE.baseHeight
@@ -39,6 +45,7 @@ export function convertDate(date, format) {
 
 export function createEntry(typeValue, {id, title, extensions, metadata, images, media}) {
 
+  /* eslint-disable-next-line camelcase */
   const media_group = createMediaGroupItem(images);
 
   return {
@@ -52,4 +59,19 @@ export function createEntry(typeValue, {id, title, extensions, metadata, images,
     extensions,
     media_group
   };
+}
+
+export function getUrlParams(params) {
+  const {url = ''} = params;
+  try {
+    const aUrl = urlparse(url, true);
+    const arr = aUrl.pathname.split('/');
+    arr.pop();
+    const path = arr.join('/');
+
+    config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
+
+  } catch (err) {
+    throw err;
+  }
 }

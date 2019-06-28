@@ -10,7 +10,7 @@ export async function getSeasons() {
       data: {
         entries: items = []
       }
-    } = await axios.get(config.MPX.ENDPOINTS.seasons);
+    } = await axios.get(`${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}`);
 
     return {
       type: {

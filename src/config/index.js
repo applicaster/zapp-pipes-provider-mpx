@@ -6,7 +6,7 @@ export const config = {
       episode: 'aplcstr30-episodes',
       movie: 'aplcstr30-movies',
     },
-    API_BASE_URL: 'http://feed.entertainment.tv.theplatform.com/f/9_yWhC'
+    API_BASE_URL: ''
   },
   PROVIDER: {
     name: 'mpx'
