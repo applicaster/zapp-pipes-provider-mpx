@@ -3,7 +3,7 @@ import {config} from '../../config/index';
 import {mapSeries} from './mappers/seriesMapper';
 import {types} from '../../types';
 
-export async function getSeries() {
+export async function getSeries(params) {
 
   try {
     const {
@@ -11,6 +11,7 @@ export async function getSeries() {
         entries: items = []
       }
     } = await axios.get(`${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.series}`);
+
     return {
       type: {
         value: types.feed

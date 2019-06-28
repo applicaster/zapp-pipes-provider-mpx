@@ -66,10 +66,12 @@ export function getUrlParams(params) {
   try {
     const aUrl = urlparse(url, true);
     const arr = aUrl.pathname.split('/');
-    arr.pop();
+
+    const id = arr.pop();
     const path = arr.join('/');
 
     config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
+    return id;
 
   } catch (err) {
     throw err;

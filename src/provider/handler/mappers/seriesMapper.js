@@ -1,3 +1,4 @@
+import * as R from "ramda";
 import {convertDate, createEntry} from "../../../utils";
 import {types} from "../../../types";
 
@@ -19,10 +20,7 @@ export function mapSeries(series) {
   const published = convertDate(publishedAt, 'LL');
   const updated = convertDate(updatedAt);
 
-  const genre = tags.filter( item => {
-    const {scheme} = item;
-    return scheme === 'Genre';
-  });
+  const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
 
   const metadata = {
     published,

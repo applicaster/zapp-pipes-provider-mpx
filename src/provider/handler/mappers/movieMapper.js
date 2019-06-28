@@ -1,3 +1,4 @@
+import * as R from "ramda";
 import {convertDate, createEntry} from "../../../utils";
 import {types} from "../../../types";
 
@@ -26,10 +27,7 @@ export function mapMovie(movie) {
   const updated = convertDate(updatedAt);
   const availableDate = convertDate(availableAtDate);
 
-  const genre = tags.filter( item => {
-    const {scheme} = item;
-    return scheme === 'Genre';
-  });
+  const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
 
   const media = {
     content: {

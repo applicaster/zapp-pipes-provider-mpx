@@ -3,13 +3,16 @@ import {config} from '../../config/index';
 import {mapEpisode} from './mappers/episodeMapper';
 import {types} from '../../types';
 
-export async function getEpisode() {
+export async function getEpisode(id) {
+
   try {
+    const { data } = await axios.get(`${config.MPX.API_BASE_URL}/${id}`);
+    if(id) {
+      return mapEpisode(data);
+    }
     const {
-      data: {
-        entries: items = []
-      }
-    } = await axios.get(`${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.episode}`);
+      entries: items
+    } = data;
     return {
       type: {
         value: types.feed
