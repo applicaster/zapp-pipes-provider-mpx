@@ -35,8 +35,6 @@ export function mapSeries(series) {
     credits,
   };
 
-  // return series;
-
   return createEntry(types.feed, {
     id,
     title,

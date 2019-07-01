@@ -1,16 +1,16 @@
 import {axios} from '../../axios/axios';
-import {config} from '../../config/index';
 import {mapMovie} from './mappers/movieMapper';
 import {types} from '../../types';
 
-export async function getMovie() {
+export async function getMovie(params) {
+  const {url} = params;
 
   try {
     const {
       data: {
         entries: items = []
       }
-    } = await axios.get(`${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.movie}`);
+    } = await axios.get(url);
     return {
       type: {
         value: types.feed
