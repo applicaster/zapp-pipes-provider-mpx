@@ -1,17 +1,17 @@
 export const manifest = {
-  handlers: ['collection', 'item'],
+  handlers: ['series', 'seasons', 'episode', 'movie'],
   help: {
-    collection: {
-      description: 'retrieves a collection or a list of collection',
-      params: {
-        id: 'optional. if provided, will return that specific collection. Will return all collections if ommited',
-      }
+    series: {
+      description: 'retrieves the complete list of series',
     },
-    item: {
-      description: 'retrieves the item with the given id',
-      params: {
-        id: 'required. id of the requested item',
-      },
+    seasons: {
+      description: 'retrieves the complete list of seasons',
+    },
+    episode: {
+        description: 'retrieves the complete list of episodes',
+    },
+    movie: {
+        description: 'retrieves the complete list of movies',
     },
   }
 };

@@ -1,9 +1,9 @@
-import { commands } from './comands';
+import {commands} from './comands';
 
 export const handler = nativeBridge => params => {
-  const { type } = params;
+  const {type} = params;
 
-  if (!type || ['collection', 'item'].indexOf(type) == -1) {
+  if (!type || !['series', 'seasons', 'episode', 'movie'].includes(type)) {
     return nativeBridge.throwError('unknown request');
   }
 

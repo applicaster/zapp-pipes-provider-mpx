@@ -20,6 +20,10 @@ const devServer = new WebpackDevServer(compiler, {
     chunks: false,
     children: false,
   },
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000
+  }
 });
 
 devServer.listen(port, 'localhost', err => {
