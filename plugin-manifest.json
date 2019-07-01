@@ -1,0 +1,67 @@
+{
+  "api": {
+  },
+  "dependency_repository_url": [
+    "https://github.com/applicaster/zapp-pipes-provider-mpx-new"
+  ],
+  "platform": null,
+  "author_name": "Olga Duk",
+  "author_email": "oduk@scand.com",
+  "manifest_version": "0.1.0",
+  "name": "MPX Datasource Test",
+  "description": "MPX datasource test",
+  "type": "data_source_provider",
+  "identifier": "mpx-dsp",
+  "ui_builder_support": true,
+  "dependency_name": "@applicaster/zapp-pipes-provider-mpx-new",
+  "dependency_version": "0.1.0",
+  "whitelisted_account_ids": [
+    "5a4516fa41442c000b0195d6"
+  ],
+  "min_zapp_sdk": "4.0.0",
+  "deprecated_since_zapp_sdk": "",
+  "unsupported_since_zapp_sdk": "",
+  "scheme": "mpx",
+  "data_types": [
+    {
+      "label": "Series",
+      "value": "series",
+      "documentation": {
+        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx-new#readme",
+        "input_description": "",
+        "input_placeholder": "",
+        "input_description_image_url": ""
+      }
+    },
+    {
+      "label": "Seasons",
+      "value": "seasons",
+      "documentation": {
+        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx-new#readme",
+        "input_description": "",
+        "input_placeholder": "",
+        "input_description_image_url": ""
+      }
+    },
+    {
+      "label": "Episode",
+      "value": "episode",
+      "documentation": {
+        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx-new#readme",
+        "input_description": "",
+        "input_placeholder": "",
+        "input_description_image_url": ""
+      }
+    },
+    {
+      "label": "Movie",
+      "value": "movie",
+      "documentation": {
+        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx-new#readme",
+        "input_description": "",
+        "input_placeholder": "",
+        "input_description_image_url": ""
+      }
+    }
+  ]
+}
