@@ -1,11 +1,11 @@
 import {getSeries} from './getSeries';
 import {getSeasons} from './getSeasons';
-import {getEpisode} from './getEpisode';
-import {getMovie} from './getMovie';
+import {getEpisodes} from './getEpisodes';
+import {getMovies} from './getMovies';
 
 export const commands = {
   series: getSeries,
   seasons: getSeasons,
-  episode: getEpisode,
-  movie: getMovie
+  episodes: getEpisodes,
+  movies: getMovies
 };

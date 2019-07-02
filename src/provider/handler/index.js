@@ -3,7 +3,7 @@ import {commands} from './comands';
 export const handler = nativeBridge => params => {
   const {type} = params;
 
-  if (!type || !['series', 'seasons', 'episode', 'movie'].includes(type)) {
+  if (!type || !['series', 'seasons', 'episodes', 'movies'].includes(type)) {
     return nativeBridge.throwError('unknown request');
   }
 

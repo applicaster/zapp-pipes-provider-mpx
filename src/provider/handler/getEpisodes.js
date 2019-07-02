@@ -1,8 +1,8 @@
 import {axios} from '../../axios/axios';
-import {mapEpisode} from './mappers/episodeMapper';
+import {mapEpisodes} from './mappers/episodesMapper';
 import {types} from '../../types';
 
-export async function getEpisode(params) {
+export async function getEpisodes(params) {
   const {url} = params;
 
   try {
@@ -16,7 +16,7 @@ export async function getEpisode(params) {
       type: {
         value: types.feed
       },
-      entry: items.map(mapEpisode)
+      entry: items.map(mapEpisodes)
     };
   } catch (err) {
     throw err;
