@@ -1,8 +1,9 @@
-import * as R from "ramda";
+import * as R from 'ramda'
 import {convertDate, createEntry} from "../../../utils";
 import {types} from "../../../types";
 
-export function mapMovie(movie) {
+
+export function mapEpisodes(episodes) {
 
   const {
     id,
@@ -12,20 +13,20 @@ export function mapMovie(movie) {
     description,
     credits,
     tags,
+    tvSeasonEpisodeNumber,
+    tvSeasonNumber,
     media: [
       {
-        publicUrl: src,
-        availableDate: availableAtDate
+        publicUrl: src
       }
     ],
     distributionRightIds,
     guid,
     thumbnails: images
-  } = movie;
+  } = episodes;
 
   const published = convertDate(publishedAt, 'LL');
   const updated = convertDate(updatedAt);
-  const availableDate = convertDate(availableAtDate);
 
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
 
@@ -44,7 +45,8 @@ export function mapMovie(movie) {
 
   const extensions = {
     alternate_id: guid,
-    availableDate,
+    tvSeasonNumber: `Season ${tvSeasonNumber}`,
+    tvSeasonEpisodeNumber: `Episode ${tvSeasonEpisodeNumber}`,
     distributionRightIds,
     genre,
     credits,

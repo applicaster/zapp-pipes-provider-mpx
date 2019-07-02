@@ -1,5 +1,5 @@
 export const manifest = {
-  handlers: ['series', 'seasons', 'episode', 'movie'],
+  handlers: ['series', 'seasons', 'episodes', 'movies'],
   help: {
     series: {
       description: 'retrieves the complete list of series',
@@ -7,10 +7,10 @@ export const manifest = {
     seasons: {
       description: 'retrieves the complete list of seasons',
     },
-    episode: {
+    episodes: {
         description: 'retrieves the complete list of episodes',
     },
-    movie: {
+    movies: {
         description: 'retrieves the complete list of movies',
     },
   }

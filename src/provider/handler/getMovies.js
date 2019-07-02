@@ -1,8 +1,8 @@
 import {axios} from '../../axios/axios';
-import {mapMovie} from './mappers/movieMapper';
+import {mapMovies} from './mappers/moviesMapper';
 import {types} from '../../types';
 
-export async function getMovie(params) {
+export async function getMovies(params) {
   const {url} = params;
 
   try {
@@ -15,7 +15,7 @@ export async function getMovie(params) {
       type: {
         value: types.feed
       },
-      entry: items.map(mapMovie)
+      entry: items.map(mapMovies)
     };
   } catch (err) {
     throw err;

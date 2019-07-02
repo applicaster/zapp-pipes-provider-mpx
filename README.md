@@ -10,8 +10,8 @@ retrieves the complete list of series
 seasons
 retrieves the seasons of a specific seasons
 
-episode
+episodes
 retrieves the complete list of episodes
 
-movie
+movies
 retrieves the complete list of movies
