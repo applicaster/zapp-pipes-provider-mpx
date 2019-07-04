@@ -1,5 +1,6 @@
 import {createEntry} from "../../../utils";
 import {types} from "../../../types";
+import { config } from "../../../config";
 
 export function mapSeasons(seasons) {
 
@@ -9,10 +10,14 @@ export function mapSeasons(seasons) {
     tvSeasonNumber,
     guid,
     description = '',
+    seriesId
   } = seasons;
 
+  const linkForAllEpisodesOfSeason = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.episodes}?bySeriesId=${seriesId}&byTvSeasonId=${id}`;
+
   const metadata = {
-    description
+    description,
+    linkForAllEpisodesOfSeason
   };
 
   const extensions = {
@@ -23,7 +28,7 @@ export function mapSeasons(seasons) {
   return createEntry(types.feed, {
     id,
     title,
-    ...metadata,
-    extensions
+    extensions,
+    metadata
   });
 }
