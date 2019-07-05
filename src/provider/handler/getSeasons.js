@@ -4,8 +4,7 @@ import {types} from '../../types';
 
 export async function getSeasons(params) {
   const {
-    url = '',
-    bySeriesId: seriesId
+    url = ''
   } = params;
 
   try {
@@ -19,7 +18,7 @@ export async function getSeasons(params) {
       type: {
         value: types.feed
       },
-      entry: items.map((item) => mapSeasons({...item, seriesId}))
+      entry: items.map(mapSeasons)
     };
   } catch (err) {
     throw err;
