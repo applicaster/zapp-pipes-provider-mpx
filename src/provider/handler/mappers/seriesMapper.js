@@ -47,8 +47,8 @@ export function mapSeries(series) {
     id,
     title,
     metadata,
-    images,
     content,
+    images,
     extensions,
   });
 }

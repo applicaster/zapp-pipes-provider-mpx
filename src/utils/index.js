@@ -54,7 +54,7 @@ export function convertDate(date, format) {
   return moment(d).format(format);
 }
 
-export function createEntry(typeValue, {id, title, extensions, metadata, images, media}) {
+export function createEntry(typeValue, {id, title, content, extensions, metadata, images, media}) {
 
   /* eslint-disable-next-line camelcase */
   const media_group = createMediaGroupItem(images);
@@ -66,6 +66,7 @@ export function createEntry(typeValue, {id, title, extensions, metadata, images,
     id,
     title,
     ...metadata,
+    content,
     media,
     extensions,
     media_group
