@@ -18,18 +18,22 @@ export function mapSeries(series) {
     thumbnails: images
   } = series;
 
-  const linkForAllSeasons = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${id}`;
+  const src = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${id}`;
 
   const published = convertDate(publishedAt, 'LL');
   const updated = convertDate(updatedAt);
 
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
 
+  const content = {
+    type: 'feed',
+    src
+  };
+
   const metadata = {
     published,
     updated,
     description,
-    linkForAllSeasons
   };
 
   const extensions = {
@@ -42,8 +46,9 @@ export function mapSeries(series) {
   return createEntry(types.feed, {
     id,
     title,
-    extensions,
     metadata,
-    images
+    images,
+    content,
+    extensions,
   });
 }

@@ -10,14 +10,18 @@ export function mapSeasons(seasons) {
     tvSeasonNumber,
     guid,
     description = '',
-    seriesId
+    seriesId,
   } = seasons;
 
-  const linkForAllEpisodesOfSeason = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.episodes}?bySeriesId=${seriesId}&byTvSeasonId=${id}`;
+  const src = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.episodes}?bySeriesId=${seriesId}&byTvSeasonId=${id}`;
+
+  const content = {
+    type: 'feed',
+    src,
+  };
 
   const metadata = {
     description,
-    linkForAllEpisodesOfSeason
   };
 
   const extensions = {
@@ -28,7 +32,8 @@ export function mapSeasons(seasons) {
   return createEntry(types.feed, {
     id,
     title,
+    metadata,
+    content,
     extensions,
-    metadata
   });
 }
