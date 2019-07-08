@@ -1,4 +1,5 @@
 import moment from 'moment/moment';
+import {parse as parseUrl} from 'url';
 import {config} from '../config';
 import {types} from '../types';
 
@@ -53,7 +54,7 @@ export function convertDate(date, format) {
   return moment(d).format(format);
 }
 
-export function createEntry(typeValue, {id, title, extensions, metadata, images, media}) {
+export function createEntry(typeValue, {id, title, content, extensions, metadata, images, media}) {
 
   /* eslint-disable-next-line camelcase */
   const media_group = createMediaGroupItem(images);
@@ -65,8 +66,45 @@ export function createEntry(typeValue, {id, title, extensions, metadata, images,
     id,
     title,
     ...metadata,
+    content,
     media,
     extensions,
     media_group
   };
+}
+
+export function isValidUrl(type, url) {
+
+  try {
+    const aUrl = parseUrl(url, true);
+    const arr = aUrl.pathname.split('/');
+    const endpoint = arr.pop();
+    const path = arr.join('/');
+
+    config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
+
+    return config.MPX.ENDPOINTS[type] === endpoint;
+  } catch (err) {
+    throw (err)
+  }
+}
+
+export function updateParamsFromUrl(params) {
+  const parameters = {...params};
+  const {url} = parameters;
+
+  try {
+    const aUrl = parseUrl(url, true);
+    const queryParams = {...aUrl.query};
+
+    Object.keys(queryParams).forEach(key => {
+      if (!parameters[key]) {
+        parameters[key] = queryParams[key];
+      }
+    });
+
+    return parameters;
+  } catch (err) {
+    throw (err)
+  }
 }

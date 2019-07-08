@@ -1,6 +1,7 @@
 import * as R from "ramda";
 import {convertDate, createEntry} from "../../../utils";
 import {types} from "../../../types";
+import { config } from "../../../config";
 
 export function mapSeries(series) {
 
@@ -17,10 +18,17 @@ export function mapSeries(series) {
     thumbnails: images
   } = series;
 
+  const src = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${id}`;
+
   const published = convertDate(publishedAt, 'LL');
   const updated = convertDate(updatedAt);
 
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
+
+  const content = {
+    type: 'feed',
+    src
+  };
 
   const metadata = {
     published,
@@ -38,8 +46,9 @@ export function mapSeries(series) {
   return createEntry(types.feed, {
     id,
     title,
-    extensions,
     metadata,
-    images
+    content,
+    images,
+    extensions,
   });
 }

@@ -55,9 +55,9 @@ export function mapEpisodes(episodes) {
   return createEntry(types.video, {
     id,
     title,
-    extensions,
     metadata,
     images,
     media,
+    extensions,
   });
 }

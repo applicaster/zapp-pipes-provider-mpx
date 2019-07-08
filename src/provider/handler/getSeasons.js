@@ -3,7 +3,9 @@ import {axios} from '../../axios/axios';
 import {types} from '../../types';
 
 export async function getSeasons(params) {
-  const {url} = params;
+  const {
+    url = ''
+  } = params;
 
   try {
     const {
