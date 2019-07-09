@@ -1,5 +1,5 @@
 import * as R from "ramda";
-import {convertDate, createEntry} from "../../../utils";
+import { convertDate, createEntry, createSrc } from "../../../utils";
 import {types} from "../../../types";
 import { config } from "../../../config";
 
@@ -18,7 +18,7 @@ export function mapSeries(series) {
     thumbnails: images
   } = series;
 
-  const src = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${id}`;
+  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${id}`;
 
   const published = convertDate(publishedAt, 'LL');
   const updated = convertDate(updatedAt);
@@ -26,8 +26,8 @@ export function mapSeries(series) {
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
 
   const content = {
-    type: 'feed',
-    src
+    type: types.feed,
+    src: createSrc('seasons', dynamicUrl),
   };
 
   const metadata = {

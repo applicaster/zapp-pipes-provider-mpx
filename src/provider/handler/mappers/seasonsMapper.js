@@ -1,4 +1,4 @@
-import {createEntry} from "../../../utils";
+import {createEntry, createSrc} from "../../../utils";
 import {types} from "../../../types";
 import { config } from "../../../config";
 
@@ -13,11 +13,11 @@ export function mapSeasons(seasons) {
     seriesId,
   } = seasons;
 
-  const src = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.episodes}?bySeriesId=${seriesId}&byTvSeasonId=${id}`;
+  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.episodes}?bySeriesId=${seriesId}&byTvSeasonId=${id}`;
 
   const content = {
-    type: 'feed',
-    src,
+    type: types.feed,
+    src: createSrc('episodes', dynamicUrl),
   };
 
   const metadata = {

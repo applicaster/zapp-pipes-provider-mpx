@@ -1,5 +1,6 @@
 import moment from 'moment/moment';
 import {parse as parseUrl} from 'url';
+import btoa from "btoa";
 import {config} from '../config';
 import {types} from '../types';
 
@@ -107,4 +108,16 @@ export function updateParamsFromUrl(params) {
   } catch (err) {
     throw (err)
   }
+}
+
+export function b64EncodeUnicode(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+    function toSolidBytes(match, p1) {
+      return String.fromCharCode('0x' + p1);
+    }));
+}
+
+export function createSrc (type, url) {
+  const encodedUrl = b64EncodeUnicode(url);
+  return `${config.PROVIDER.name}://fetchData?type=${type}&url=${encodedUrl}`;
 }
