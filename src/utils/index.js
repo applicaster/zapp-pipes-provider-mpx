@@ -84,7 +84,7 @@ export function isValidUrl(type, url) {
 
     config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
 
-    return config.MPX.ENDPOINTS[type] === endpoint;
+    return true;
   } catch (err) {
     throw (err)
   }
