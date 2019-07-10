@@ -9,6 +9,9 @@ export const config = {
       seasons: 'aplcstr30-tv-seasons',
       episodes: 'aplcstr30-episodes',
       movies: 'aplcstr30-movies'
+    },
+    SORT_BY: {
+      seasons: 'tvSeasonNumber'
     }
   },
   IMAGE: {
@@ -16,6 +19,6 @@ export const config = {
     baseMinHeight: 400,
     baseMaxWidth: 800,
     baseMaxHeight: 500,
-    baseKey: 'base_image'
+    baseKey: 'image_base'
   }
 };
