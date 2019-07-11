@@ -26,7 +26,6 @@ export function mapSeries(series) {
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
 
   const content = {
-    type: types.feed,
     src: createSrc('seasons', dynamicUrl),
   };
 

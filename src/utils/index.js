@@ -111,3 +111,12 @@ export function createSrc (type, url) {
   const encodedUrl = b64EncodeUnicode(url);
   return `${config.PROVIDER.name}://fetchData?type=${type}&url=${encodedUrl}`;
 }
+
+export function setRange (params) {
+  const {
+    url,
+    limit = config.MPX.API_PAGE_LIMIT_DEFAULT
+  } = params;
+
+  return url.includes('?') ? `&range=-${limit}` : `?range=-${limit}`
+}
