@@ -74,28 +74,18 @@ export function createEntry(typeValue, {id, title, content, extensions, metadata
   };
 }
 
-export function isValidUrl(type, url) {
-
-  try {
-    const aUrl = parseUrl(url, true);
-    const arr = aUrl.pathname.split('/');
-    const endpoint = arr.pop();
-    const path = arr.join('/');
-
-    config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
-
-    return true;
-  } catch (err) {
-    throw (err)
-  }
-}
-
 export function updateParamsFromUrl(params) {
   const parameters = {...params};
   const {url} = parameters;
 
   try {
     const aUrl = parseUrl(url, true);
+    const arr = aUrl.pathname.split('/');
+    arr.pop();
+    const path = arr.join('/');
+
+    config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
+
     const queryParams = {...aUrl.query};
 
     Object.keys(queryParams).forEach(key => {
@@ -120,4 +110,13 @@ export function b64EncodeUnicode(str) {
 export function createSrc (type, url) {
   const encodedUrl = b64EncodeUnicode(url);
   return `${config.PROVIDER.name}://fetchData?type=${type}&url=${encodedUrl}`;
+}
+
+export function setRange (params) {
+  const {
+    url,
+    limit = config.MPX.API_PAGE_LIMIT_DEFAULT
+  } = params;
+
+  return url.includes('?') ? `&range=-${limit}` : `?range=-${limit}`
 }

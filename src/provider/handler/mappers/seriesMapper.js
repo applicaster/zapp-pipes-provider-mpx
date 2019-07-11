@@ -18,7 +18,7 @@ export function mapSeries(series) {
     thumbnails: images
   } = series;
 
-  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${id}`;
+  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${id}&sort=${config.MPX.SORT_BY.seasons}`;
 
   const published = convertDate(publishedAt, 'LL');
   const updated = convertDate(updatedAt);
@@ -26,7 +26,6 @@ export function mapSeries(series) {
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
 
   const content = {
-    type: types.feed,
     src: createSrc('seasons', dynamicUrl),
   };
 
