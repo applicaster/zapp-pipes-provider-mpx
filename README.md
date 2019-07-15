@@ -1,6 +1,6 @@
 # zapp-pipes-provider-mpx
 
-Data source provider for [http://feed.entertainment.tv.theplatform.com](MPXPlatform), using [http://developer-zapp.applicaster.com/Zapp-Pipes/Home.html](zapp-pipes)
+Datasource provider for mpx - Comcast's video management system. More on mpx can be found [here](https://www.comcasttechnologysolutions.com/our-portfolio/video-platform/mpx).
 
 ## Getting Started
 
@@ -18,7 +18,7 @@ Please keep in mind that in order to run this project you will need Applicaster 
 
 ## Running the tests
 
-We're using [https://github.com/avajs/ava](AVA) as our test runner.
+We're using [AVA](https://github.com/avajs/ava) as our test runner.
 Tests should be placed in the `test` folder which is following project folder structure.
 
 ## Deployment
@@ -33,7 +33,7 @@ Provider is an npm package which is part of our applicaster private npm account
 
 ### Updating plugin
 
-1.  Install zappifest if you don't have it yet. [https://github.com/applicaster/zappifest](Installation instructions)
+1.  Install zappifest if you don't have it yet according to the [installation instructions](https://github.com/applicaster/zappifest).
 2.  Update npm package version number inside `plugin-manifest.json` and `package.json` files. `dependency_version: x.x.xx`
 3.  Publish the provider to the npm repository according to the instructions above. 
 3.  run `zappifest publish --manifest plugin-manifest.json --access-token $ZAPP_TOKEN`
@@ -51,38 +51,12 @@ Bundling the data source provider to your app is done through the feed section i
 
 ## List of Handlers
 
-### series - retrieves the complete list of series
+The mpx Datasource supports 4 handles - Series, Seasons, Episodes and Movies. All handlers support the same parameters, as described in the table below:
 
-| Parameter | Description                                                            | Type   | Example                           |
-| --------- | -----------------------------------------------------------------------| ------ | --------------------------------- |
-| url       | base64 encoded series feed url                                         | String | `url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLXNlcmllcw%3D%3D`                     |
-| limit     | optional. If specified limits the number of series in response payload | Number | `limit=10`                        |
 
-Url example: `mpx://fetchData?type=series&url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLXNlcmllcw&limit=10`
+| Parameter | Description                                                           | Type   | Example                           |
+| --------- | ----------------------------------------------------------------------| ------ | --------------------------------- |
+| url       | feed url                                                              | String | `url=http://feed.entertainment.tv.theplatform.com/f/9_yWhC/aplcstr30-movies`                     |
+| limit     | optional. If specified limits the number of items in response payload | Number | `limit=10`                        |
 
-### seasons - retrieves list of seasons according to the url parameters
-
-| Parameter | Description                                                             | Type   | Example                           |
-| --------- | ------------------------------------------------------------------------| ------ | --------------------------------- |
-| url       | base64 encoded seasons feed url                                         | String | `url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLXR2LXNlYXNvbnM%3D`                     |
-| limit     | optional. If specified limits the number of seasons in response payload | Number | `limit=20`                        |
-
-Url example: `mpx://fetchData?type=seasons&url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLXR2LXNlYXNvbnM%3D&limit=20`
-
-### episodes - retrieves list of episodes according to the url parameters
-
-| Parameter | Description                                                              | Type   | Example                           |
-| --------- | ------------------------------------------------------------------------ | ------ | --------------------------------- |
-| url       | base64 encoded episodes feed url                                         | String | `url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLWVwaXNvZGVz`                        |
-| limit     | optional. If specified limits the number of episodes in response payload | Number | `limit=12`                        |
-
-Url example: `mpx://fetchData?type=episodes&url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLWVwaXNvZGVz&limit=12`
-
-### movies - retrieves the complete list of movies
-
-| Parameter | Description                                                              | Type   | Example                           |
-| --------- | ------------------------------------------------------------------------ | ------ | --------------------------------- |
-| url       | base64 encoded episodes feed url                                         | String | `url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLW1vdmllcw%3D%3D`                     |
-| limit     | optional. If specified limits the number of movies in response payload   | Number | `limit=50`                       |
-
-Url example: `mpx://fetchData?type=movies&url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLW1vdmllcw%3D%3D&limit=50`
+Url example: `mpx://fetchData?type=movies&url=http://feed.entertainment.tv.theplatform.com/f/9_yWhC/aplcstr30-movies&limit=10`

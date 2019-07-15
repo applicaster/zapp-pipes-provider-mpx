@@ -9,14 +9,14 @@ export const manifest = {
       }
     },
     seasons: {
-      description: 'retrieves list of seasons according to the url parameters',
+      description: 'retrieves the list of seasons according to the url parameters (e.g. bySeriesId)',
       params: {
         url: 'required. base64 encoded seasons feed url',
         limit: 'optional. Limits the number of seasons in response payload'
       }
     },
     episodes: {
-      description: 'retrieves list of episodes according to the url parameters',
+      description: 'retrieves the list of episodes according to the url parameters (e.g. bySeriesId, byTvSeasonId)',
       params: {
         url: 'required. base64 encoded episodes feed url',
         limit: 'optional. Limits the number of episodes in response payload'
