@@ -4,7 +4,7 @@ import btoa from "btoa";
 import {config} from '../config';
 import {types} from '../types';
 
-export function createMediaGroupItem(images) {
+export function createMediaItem(images) {
 
   if (images === undefined || images === null) {
     return undefined;
@@ -38,15 +38,9 @@ export function createMediaGroupItem(images) {
 
     return {
       type: types.image,
-      media_item: [
-        {
-          type: types.image,
-          src: url,
-          key: getBaseImage()
-
-        }
-      ]
-    };
+      src: url,
+      key: getBaseImage()
+    }
   })
 }
 
@@ -58,7 +52,14 @@ export function convertDate(date, format) {
 export function createEntry(typeValue, {id, title, content, extensions, metadata, images, media}) {
 
   /* eslint-disable-next-line camelcase */
-  const media_group = createMediaGroupItem(images);
+  const media_group = images
+    ? [
+        {
+          type: types.image,
+           media_item: createMediaItem(images)
+        },
+      ]
+    : undefined;
 
   return {
     type: {

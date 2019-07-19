@@ -9,7 +9,7 @@ export function mapMovies(movies) {
     title,
     updated: updatedAt,
     pubDate: publishedAt,
-    description,
+    description: summary = '',
     credits,
     tags,
     media: [
@@ -23,7 +23,7 @@ export function mapMovies(movies) {
     thumbnails: images
   } = movies;
 
-  const published = convertDate(publishedAt, 'LL');
+  const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);
   const availableDate = convertDate(availableAtDate);
 
@@ -39,7 +39,7 @@ export function mapMovies(movies) {
   const metadata = {
     published,
     updated,
-    description,
+    summary,
   };
 
   const extensions = {
