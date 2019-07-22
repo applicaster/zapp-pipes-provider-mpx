@@ -14,9 +14,14 @@ export function mapSeasons(seasons) {
 
   const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.episodes}?bySeriesId=${seriesId}&byTvSeasonId=${id}`;
 
-  const content = {
-    src: createSrc('episodes', dynamicUrl),
-  };
+  const entry = [
+    {
+      content: {
+        type: 'feed',
+        src: createSrc('episodes', dynamicUrl),
+      }
+    }
+  ];
 
   const extensions = {
     alternate_id: guid,
@@ -26,7 +31,7 @@ export function mapSeasons(seasons) {
   return createEntry(types.feed, {
     id,
     title,
-    content,
+    entry,
     extensions,
   });
 }

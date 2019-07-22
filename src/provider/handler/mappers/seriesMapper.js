@@ -25,9 +25,15 @@ export function mapSeries(series) {
 
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
 
-  const content = {
-    src: createSrc('seasons', dynamicUrl),
-  };
+  const entry = [
+    {
+      content: {
+        type: 'feed',
+        src: createSrc('seasons', dynamicUrl)
+      }
+    }
+  ];
+
 
   const metadata = {
     published,
@@ -46,7 +52,7 @@ export function mapSeries(series) {
     id,
     title,
     metadata,
-    content,
+    entry,
     images,
     extensions,
   });
