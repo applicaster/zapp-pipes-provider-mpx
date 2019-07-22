@@ -10,7 +10,7 @@ export function mapSeries(series) {
     title,
     updated: updatedAt,
     pubDate: publishedAt,
-    description,
+    description: summary = '',
     credits,
     tags,
     distributionRightIds,
@@ -20,7 +20,7 @@ export function mapSeries(series) {
 
   const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${id}&sort=${config.MPX.SORT_BY.seasons}`;
 
-  const published = convertDate(publishedAt, 'LL');
+  const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);
 
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
@@ -32,7 +32,7 @@ export function mapSeries(series) {
   const metadata = {
     published,
     updated,
-    description,
+    summary,
   };
 
   const extensions = {

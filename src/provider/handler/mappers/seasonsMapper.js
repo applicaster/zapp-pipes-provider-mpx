@@ -9,7 +9,6 @@ export function mapSeasons(seasons) {
     title,
     tvSeasonNumber,
     guid,
-    description = '',
     seriesId,
   } = seasons;
 
@@ -17,10 +16,6 @@ export function mapSeasons(seasons) {
 
   const content = {
     src: createSrc('episodes', dynamicUrl),
-  };
-
-  const metadata = {
-    description,
   };
 
   const extensions = {
@@ -31,7 +26,6 @@ export function mapSeasons(seasons) {
   return createEntry(types.feed, {
     id,
     title,
-    metadata,
     content,
     extensions,
   });

@@ -12,8 +12,7 @@ export const config = {
     },
     SORT_BY: {
       seasons: 'tvSeasonNumber'
-    },
-    API_PAGE_LIMIT_DEFAULT: 100
+    }
   },
   IMAGE: {
     baseMinWidth: 700,

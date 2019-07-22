@@ -10,7 +10,7 @@ export function mapEpisodes(episodes) {
     title,
     updated: updatedAt,
     pubDate: publishedAt,
-    description,
+    description: summary = '',
     credits,
     tags,
     tvSeasonEpisodeNumber,
@@ -25,7 +25,7 @@ export function mapEpisodes(episodes) {
     thumbnails: images
   } = episodes;
 
-  const published = convertDate(publishedAt, 'LL');
+  const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);
 
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
@@ -40,7 +40,7 @@ export function mapEpisodes(episodes) {
   const metadata = {
     published,
     updated,
-    description,
+    summary,
   };
 
   const extensions = {

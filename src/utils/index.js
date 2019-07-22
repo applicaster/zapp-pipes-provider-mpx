@@ -4,7 +4,7 @@ import btoa from "btoa";
 import {config} from '../config';
 import {types} from '../types';
 
-export function createMediaGroupItem(images) {
+export function createMediaItem(images) {
 
   if (images === undefined || images === null) {
     return undefined;
@@ -38,15 +38,9 @@ export function createMediaGroupItem(images) {
 
     return {
       type: types.image,
-      media_item: [
-        {
-          type: types.image,
-          src: url,
-          key: getBaseImage()
-
-        }
-      ]
-    };
+      src: url,
+      key: getBaseImage()
+    }
   })
 }
 
@@ -58,7 +52,14 @@ export function convertDate(date, format) {
 export function createEntry(typeValue, {id, title, content, extensions, metadata, images, media}) {
 
   /* eslint-disable-next-line camelcase */
-  const media_group = createMediaGroupItem(images);
+  const media_group = images
+    ? [
+        {
+          type: types.image,
+           media_item: createMediaItem(images)
+        },
+      ]
+    : undefined;
 
   return {
     type: {
@@ -74,9 +75,13 @@ export function createEntry(typeValue, {id, title, content, extensions, metadata
   };
 }
 
+export function setRange (url) {
+  return url.includes('limit=') ? url.replace('limit=', 'range=-') : url;
+}
+
 export function updateParamsFromUrl(params) {
+  const {url} = params;
   const parameters = {...params};
-  const {url} = parameters;
 
   try {
     const aUrl = parseUrl(url, true);
@@ -110,13 +115,4 @@ export function b64EncodeUnicode(str) {
 export function createSrc (type, url) {
   const encodedUrl = b64EncodeUnicode(url);
   return `${config.PROVIDER.name}://fetchData?type=${type}&url=${encodedUrl}`;
-}
-
-export function setRange (params) {
-  const {
-    url,
-    limit = config.MPX.API_PAGE_LIMIT_DEFAULT
-  } = params;
-
-  return url.includes('?') ? `&range=-${limit}` : `?range=-${limit}`
 }
