@@ -75,9 +75,13 @@ export function createEntry(typeValue, {id, title, content, extensions, metadata
   };
 }
 
+export function setRange (url) {
+  return url.includes('limit=') ? url.replace('limit=', 'range=-') : url;
+}
+
 export function updateParamsFromUrl(params) {
+  const {url} = params;
   const parameters = {...params};
-  const {url} = parameters;
 
   try {
     const aUrl = parseUrl(url, true);
@@ -111,13 +115,4 @@ export function b64EncodeUnicode(str) {
 export function createSrc (type, url) {
   const encodedUrl = b64EncodeUnicode(url);
   return `${config.PROVIDER.name}://fetchData?type=${type}&url=${encodedUrl}`;
-}
-
-export function setRange (params) {
-  const {
-    url,
-    limit = config.MPX.API_PAGE_LIMIT_DEFAULT
-  } = params;
-
-  return url.includes('?') ? `&range=-${limit}` : `?range=-${limit}`
 }
