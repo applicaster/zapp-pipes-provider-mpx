@@ -7,7 +7,7 @@
   "platform": null,
   "author_name": "Olga Duk",
   "author_email": "oduk@scand.com",
-  "manifest_version": "0.1.5",
+  "manifest_version": "0.1.7",
   "name": "MPX Datasource Test",
   "description": "MPX datasource test",
   "type": "data_source_provider",
