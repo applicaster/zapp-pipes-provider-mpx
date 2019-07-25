@@ -4,15 +4,14 @@ import {types} from '../../types';
 import { setRange } from "../../utils";
 
 export async function getMovies(params) {
-  let { url } = params;
-  url = setRange(url);
+  const feedUrl = setRange(params);
 
   try {
     const {
       data: {
         entries: items = []
       }
-    } = await axios.get(`${url}`);
+    } = await axios.get(`${feedUrl}`);
     
     return {
       type: {
