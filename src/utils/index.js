@@ -76,7 +76,11 @@ export function createEntry(typeValue, {id, title, content, extensions, metadata
 }
 
 export function setRange (url) {
-  return url.includes('limit=') ? url.replace('limit=', 'range=-') : url;
+  if (url.includes('&limit=')) {
+    const feedUrl = url.slice(0, url.indexOf('&limit'));
+    return feedUrl.includes('?') ? url.replace('limit=', 'range=-') : url.replace('&limit=', '?range=-');
+  }
+  return url
 }
 
 export function updateParamsFromUrl(params) {
@@ -84,6 +88,7 @@ export function updateParamsFromUrl(params) {
   const parameters = {...params};
 
   try {
+    parameters.url = setRange(url);
     const aUrl = parseUrl(url, true);
     const arr = aUrl.pathname.split('/');
     arr.pop();
