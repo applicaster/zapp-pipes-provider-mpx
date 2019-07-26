@@ -75,16 +75,20 @@ export function createEntry(typeValue, {id, title, content, extensions, metadata
   };
 }
 
-export function setRange (url) {
-  return url.includes('limit=') ? url.replace('limit=', 'range=-') : url;
+export function setRange (params) {
+  const {
+    feedUrl,
+    limit = config.MPX.LIMIT
+  }=params;
+    return feedUrl.includes('?') ? `${feedUrl}&range=-${limit}` : `${feedUrl}?range=-${limit}`;
 }
 
 export function updateParamsFromUrl(params) {
-  const {url} = params;
+  const {feedUrl} = params;
   const parameters = {...params};
 
   try {
-    const aUrl = parseUrl(url, true);
+    const aUrl = parseUrl(feedUrl, true);
     const arr = aUrl.pathname.split('/');
     arr.pop();
     const path = arr.join('/');
