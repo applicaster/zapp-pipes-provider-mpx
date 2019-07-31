@@ -56,7 +56,7 @@ The mpx Datasource supports 4 handles - Series, Seasons, Episodes and Movies. Al
 
 | Parameter | Description                                                           | Type   | Example                           |
 | --------- | ----------------------------------------------------------------------| ------ | --------------------------------- |
-| url       | feed url                                                              | String | `url=http://feed.entertainment.tv.theplatform.com/f/9_yWhC/aplcstr30-movies`                     |
+| url       | feed url                                                              | String | `url=?feedUrl=http://feed.entertainment.tv.theplatform.com/f/9_yWhC/aplcstr30-movies`                     |
 | limit     | optional. If specified limits the number of items in response payload | Number | `limit=10`                        |
 
-Url example: `mpx://fetchData?type=movies&url=http://feed.entertainment.tv.theplatform.com/f/9_yWhC/aplcstr30-movies&limit=10`
+Url example: `mpx://fetchData?type=movies&url=?feedUrl=http://feed.entertainment.tv.theplatform.com/f/9_yWhC/aplcstr30-movies&limit=10`

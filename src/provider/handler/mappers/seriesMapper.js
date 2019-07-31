@@ -18,7 +18,7 @@ export function mapSeries(series) {
     thumbnails: images
   } = series;
 
-  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${id}&sort=${config.MPX.SORT_BY.seasons}`;
+  const dynamicUrl = `?feedUrl=${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${id}&sort=${config.MPX.SORT_BY.seasons}`;
 
   const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);
