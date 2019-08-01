@@ -12,7 +12,7 @@ export function mapSeasons(seasons) {
     seriesId,
   } = seasons;
 
-  const dynamicUrl = `?feedUrl=${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.episodes}?bySeriesId=${seriesId}&byTvSeasonId=${id}`;
+  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.episodes}?bySeriesId=${seriesId}&byTvSeasonId=${id}`;
 
   const content = {
     src: createSrc('episodes', dynamicUrl),

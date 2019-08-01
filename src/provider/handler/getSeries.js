@@ -4,14 +4,15 @@ import {types} from '../../types';
 import { setRange } from "../../utils";
 
 export async function getSeries(params) {
-  const feedUrl = setRange(params);
+  let {url} = params;
+  url = setRange(url);
 
   try {
     const {
       data: {
         entries: items = []
       }
-    } = await axios.get(`${feedUrl}`);
+    } = await axios.get(`${url}`);
 
     return {
       type: {
