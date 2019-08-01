@@ -75,16 +75,18 @@ export function createEntry(typeValue, {id, title, content, extensions, metadata
   };
 }
 
+function findKey(object, key) {
+  return Object.keys(object).find(k => k.toLowerCase() === key.toLowerCase());
+}
+
 export function setRange (params) {
-  const {
-    feedUrl,
-    limit = config.MPX.LIMIT
-  }=params;
-    return feedUrl.includes('?') ? `${feedUrl}&range=-${limit}` : `${feedUrl}?range=-${limit}`;
+  const { limit = config.MPX.LIMIT } = params;
+  const feedUrl = params[findKey(params, 'feedUrl')];
+  return feedUrl.includes('?') ? `${feedUrl}&range=-${limit}` : `${feedUrl}?range=-${limit}`;
 }
 
 export function updateParamsFromUrl(params) {
-  const {feedUrl} = params;
+  const feedUrl = params[findKey(params, 'feedUrl')];
   const parameters = {...params};
 
   try {

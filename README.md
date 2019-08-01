@@ -40,7 +40,7 @@ Provider is an npm package which is part of our applicaster private npm account
 
 ### Bundling DSP for your app
 
-Bundling the data source provider to your app is done through the feed section in the ui builder. For more information please refer to http://developer-zapp.applicaster.com/Zapp-Pipes/7.-Connect-to-Zapp.html
+Bundling the data source provider to your app is done through the feed section in the ui builder. For more information please refer to [documentation](http://developer-zapp.applicaster.com/Zapp-Pipes/7.-Connect-to-Zapp.html).
 
 ## Development
 
@@ -56,7 +56,7 @@ The mpx Datasource supports 4 handles - Series, Seasons, Episodes and Movies. Al
 
 | Parameter | Description                                                           | Type   | Example                           |
 | --------- | ----------------------------------------------------------------------| ------ | --------------------------------- |
-| url       | feed url                                                              | String | `url=http://feed.entertainment.tv.theplatform.com/f/9_yWhC/aplcstr30-movies`                     |
+| url       | feed url                                                              | String | `url=P2ZlZWRVcmw9aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLW1vdmllcw%3D%3D`                     |
 | limit     | optional. If specified limits the number of items in response payload | Number | `limit=10`                        |
 
-Url example: `mpx://fetchData?type=movies&url=http://feed.entertainment.tv.theplatform.com/f/9_yWhC/aplcstr30-movies&limit=10`
+Url example: `mpx://fetchData?type=movies&url=P2ZlZWRVcmw9aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLW1vdmllcyZsaW1pdD0xMA%3D%3D`
