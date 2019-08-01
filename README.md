@@ -56,7 +56,7 @@ The mpx Datasource supports 4 handles - Series, Seasons, Episodes and Movies. Al
 
 | Parameter | Description                                                           | Type   | Example                           |
 | --------- | ----------------------------------------------------------------------| ------ | --------------------------------- |
-| url       | feed url                                                              | String | `url=P2ZlZWRVcmw9aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLW1vdmllcw%3D%3D`                     |
+| url       | feed url                                                              | String | `url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLXR2LXNlYXNvbnM%3D`                     |
 | limit     | optional. If specified limits the number of items in response payload | Number | `limit=10`                        |
 
-Url example: `mpx://fetchData?type=movies&url=P2ZlZWRVcmw9aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLW1vdmllcyZsaW1pdD0xMA%3D%3D`
+Url example: `mpx://fetchData?type=seasons&url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLXR2LXNlYXNvbnM%3D`
