@@ -1,6 +1,6 @@
 {
-  "name": "@applicaster/zapp-pipes-provider-mpx-new",
-  "version": "0.1.12",
+  "name": "@applicaster/zapp-pipes-provider-mpx",
+  "version": "1.0.0",
   "description": "MPX datasource provider",
   "main": "lib/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/applicaster/zapp-pipes-provider-mpx-new.git"
+    "url": "https://github.com/applicaster/zapp-pipes-provider-mpx.git"
   },
   "keywords": [
     "applicaster",
@@ -23,9 +23,9 @@
   "author": "applicaster",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/applicaster/zapp-pipes-provider-mpx-new.git"
+    "url": "https://github.com/applicaster/zapp-pipes-provider-mpx.git"
   },
-  "homepage": "https://github.com/applicaster/zapp-pipes-provider-mpx-new.git#readme",
+  "homepage": "https://github.com/applicaster/zapp-pipes-provider-mpx.git#readme",
   "dependencies": {
     "axios": "^0.16.2",
     "btoa": "^1.2.1",

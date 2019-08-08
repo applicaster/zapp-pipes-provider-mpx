@@ -2,19 +2,19 @@
   "api": {
   },
   "dependency_repository_url": [
-    "https://github.com/applicaster/zapp-pipes-provider-mpx-new"
+    "https://github.com/applicaster/zapp-pipes-provider-mpx"
   ],
   "platform": null,
   "author_name": "Olga Duk",
   "author_email": "oduk@scand.com",
-  "manifest_version": "0.1.12",
-  "name": "MPX Datasource Test",
-  "description": "MPX datasource test",
+  "manifest_version": "1.0.0",
+  "name": "MPX Datasource",
+  "description": "MPX datasource",
   "type": "data_source_provider",
   "identifier": "mpx-dsp",
   "ui_builder_support": true,
-  "dependency_name": "@applicaster/zapp-pipes-provider-mpx-new",
-  "dependency_version": "0.1.12",
+  "dependency_name": "@applicaster/zapp-pipes-provider-mpx",
+  "dependency_version": "1.0.0",
   "whitelisted_account_ids": [
     "5a4516fa41442c000b0195d6",
     "5c85455842b06d000836d041"
@@ -28,7 +28,7 @@
       "label": "Series",
       "value": "series",
       "documentation": {
-        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx-new#readme",
+        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx#readme",
         "input_description": "",
         "input_placeholder": "",
         "input_description_image_url": ""
@@ -38,7 +38,7 @@
       "label": "Seasons",
       "value": "seasons",
       "documentation": {
-        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx-new#readme",
+        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx#readme",
         "input_description": "",
         "input_placeholder": "",
         "input_description_image_url": ""
@@ -48,7 +48,7 @@
       "label": "Episodes",
       "value": "episodes",
       "documentation": {
-        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx-new#readme",
+        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx#readme",
         "input_description": "",
         "input_placeholder": "",
         "input_description_image_url": ""
@@ -58,7 +58,7 @@
       "label": "Movies",
       "value": "movies",
       "documentation": {
-        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx-new#readme",
+        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx#readme",
         "input_description": "",
         "input_placeholder": "",
         "input_description_image_url": ""
