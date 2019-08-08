@@ -1,6 +1,6 @@
 export const config = {
   PROVIDER: {
-    name: 'mpx'
+    name: 'mpx-test'
   },
   MPX: {
     API_BASE_URL: '',
