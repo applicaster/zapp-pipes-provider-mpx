@@ -83,6 +83,11 @@ export function setRange (url) {
   return url
 }
 
+export function getPlatform (url) {
+  const aUrl = parseUrl(url, true);
+  return `${aUrl.protocol}//${aUrl.host}` === config.MPX.MEDIA_BASE_URL ? 'media' : 'entertainment';
+}
+
 export function updateParamsFromUrl(params) {
   const parameters = {...params};
   const { url } = parameters;
@@ -102,6 +107,8 @@ export function updateParamsFromUrl(params) {
         parameters[key] = queryParams[key];
       }
     });
+
+    parameters.platform = getPlatform(url);
 
     return parameters;
   } catch (err) {
