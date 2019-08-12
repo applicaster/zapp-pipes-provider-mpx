@@ -12,14 +12,17 @@ export function createMediaItem(images) {
 
   const imagesKeys = Object.keys(images);
   let baseImage = false;
+  const widthArr = [];
 
-  return imagesKeys.map(imageKey => {
+  const result = imagesKeys.map(imageKey => {
 
     const {
       width,
       height,
       url
     } = images[imageKey];
+
+    widthArr.push(width);
 
     const key = `image_${width}_x_${height}`;
 
@@ -41,7 +44,20 @@ export function createMediaItem(images) {
       src: url,
       key: getBaseImage()
     }
-  })
+  });
+
+    if(!baseImage) {
+      const minWidth = Math.min(...widthArr);
+
+      const baseImageKey = imagesKeys.find(imageKey => {
+        const { width } = images[imageKey];
+        baseImage = true;
+        return width === minWidth
+      });
+
+      result[baseImageKey].key = config.IMAGE.baseKey;
+    }
+  return result;
 }
 
 export function convertDate(date, format) {
