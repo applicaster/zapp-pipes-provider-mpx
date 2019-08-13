@@ -1,5 +1,5 @@
 import moment from 'moment/moment';
-import {parse as parseUrl} from 'url';
+import {parse as parseUrl, format} from 'url';
 import btoa from "btoa";
 import {config} from '../config';
 import {types} from '../types';
@@ -60,9 +60,9 @@ export function createMediaItem(images) {
   return result;
 }
 
-export function convertDate(date, format) {
+export function convertDate(date, form) {
   const d = moment(date).toDate();
-  return moment(d).format(format);
+  return moment(d).format(form);
 }
 
 export function createEntry(typeValue, {id, title, content, extensions, metadata, images, media}) {
@@ -104,6 +104,22 @@ export function getPlatform (url) {
   return `${aUrl.protocol}//${aUrl.host}` === config.MPX.MEDIA_BASE_URL ? 'media' : 'entertainment';
 }
 
+export function setFeedResponseForm (url) {
+  const aUrl = parseUrl(url, true);
+  Object.keys(aUrl.query).forEach(key => {
+      if (key === 'form') {
+        aUrl.query[key] = 'cjson';
+      }
+  });
+
+  return format({
+    protocol: aUrl.protocol,
+    hostname: aUrl.hostname,
+    pathname: aUrl.pathname,
+    query: aUrl.query
+  });
+}
+
 export function updateParamsFromUrl(params) {
   const parameters = {...params};
   const { url } = parameters;
@@ -125,6 +141,7 @@ export function updateParamsFromUrl(params) {
     });
 
     parameters.platform = getPlatform(url);
+    parameters.url = setFeedResponseForm(url);
 
     return parameters;
   } catch (err) {
