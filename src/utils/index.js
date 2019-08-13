@@ -143,3 +143,14 @@ export function createSrc (type, url) {
   const encodedUrl = b64EncodeUnicode(url);
   return `${config.PROVIDER.name}://fetchData?type=${type}&url=${encodedUrl}`;
 }
+
+export function getCustomFields(obj) {
+  const keys = Object.keys(obj);
+  const customKeys = keys.filter(key => key.includes('$'));
+  const newObj = {};
+  customKeys.forEach(key => {
+    const newKey = key.slice(key.indexOf('$') + 1);
+    newObj[newKey] = obj[key]
+  });
+  return newObj;
+}
