@@ -1,6 +1,5 @@
-import {convertDate, createEntry} from "../../../utils";
+import {convertDate, createEntry, getCustomFields} from "../../../utils";
 import {types} from "../../../types";
-
 
 export function mapMediaEpisodes(episodes) {
 
@@ -8,10 +7,7 @@ export function mapMediaEpisodes(episodes) {
     guid: id,
     title,
     pubDate: publishedAt,
-    pl1$longDescription: summary = '',
-    pl1$genre: genre,
-    pl1$cast: cast,
-    pl1$director: director,
+    description: summary = '',
     content: [
       {
         url: src,
@@ -35,15 +31,9 @@ export function mapMediaEpisodes(episodes) {
     published,
   };
 
-  const credits = {
-    director,
-    cast
-  };
-
   const extensions = {
     duration,
-    genre,
-    credits,
+    ... getCustomFields(episodes)
   };
 
   return createEntry(types.video, {

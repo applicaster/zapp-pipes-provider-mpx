@@ -1,5 +1,5 @@
 import moment from 'moment/moment';
-import {parse as parseUrl} from 'url';
+import {parse as parseUrl, format} from 'url';
 import btoa from "btoa";
 import {config} from '../config';
 import {types} from '../types';
@@ -12,14 +12,17 @@ export function createMediaItem(images) {
 
   const imagesKeys = Object.keys(images);
   let baseImage = false;
+  const widthArr = [];
 
-  return imagesKeys.map(imageKey => {
+  const result = imagesKeys.map(imageKey => {
 
     const {
       width,
       height,
       url
     } = images[imageKey];
+
+    widthArr.push(width);
 
     const key = `image_${width}_x_${height}`;
 
@@ -41,12 +44,25 @@ export function createMediaItem(images) {
       src: url,
       key: getBaseImage()
     }
-  })
+  });
+
+    if(!baseImage) {
+      const minWidth = Math.min(...widthArr);
+
+      const baseImageKey = imagesKeys.find(imageKey => {
+        const { width } = images[imageKey];
+        baseImage = true;
+        return width === minWidth
+      });
+
+      result[baseImageKey].key = config.IMAGE.baseKey;
+    }
+  return result;
 }
 
-export function convertDate(date, format) {
+export function convertDate(date, form) {
   const d = moment(date).toDate();
-  return moment(d).format(format);
+  return moment(d).format(form);
 }
 
 export function createEntry(typeValue, {id, title, content, extensions, metadata, images, media}) {
@@ -88,6 +104,22 @@ export function getPlatform (url) {
   return `${aUrl.protocol}//${aUrl.host}` === config.MPX.MEDIA_BASE_URL ? 'media' : 'entertainment';
 }
 
+export function setFeedResponseForm (url) {
+  const aUrl = parseUrl(url, true);
+  Object.keys(aUrl.query).forEach(key => {
+      if (key === 'form') {
+        aUrl.query[key] = 'cjson';
+      }
+  });
+
+  return format({
+    protocol: aUrl.protocol,
+    hostname: aUrl.hostname,
+    pathname: aUrl.pathname,
+    query: aUrl.query
+  });
+}
+
 export function updateParamsFromUrl(params) {
   const parameters = {...params};
   const { url } = parameters;
@@ -109,6 +141,7 @@ export function updateParamsFromUrl(params) {
     });
 
     parameters.platform = getPlatform(url);
+    parameters.url = setFeedResponseForm(url);
 
     return parameters;
   } catch (err) {
@@ -126,4 +159,15 @@ export function b64EncodeUnicode(str) {
 export function createSrc (type, url) {
   const encodedUrl = b64EncodeUnicode(url);
   return `${config.PROVIDER.name}://fetchData?type=${type}&url=${encodedUrl}`;
+}
+
+export function getCustomFields(obj) {
+  const keys = Object.keys(obj);
+  const customKeys = keys.filter(key => key.includes('$'));
+  const newObj = {};
+  customKeys.forEach(key => {
+    const newKey = key.slice(key.indexOf('$') + 1);
+    newObj[newKey] = obj[key]
+  });
+  return newObj;
 }
