@@ -1,7 +1,7 @@
 import {mapSeasons} from './mappers/seasonsMapper';
 import {axios} from '../../axios/axios';
 import {types} from '../../types';
-import { getUniqueItems, setRange } from "../../utils";
+import { byField, getUniqueItems, setRange } from "../../utils";
 import { mapMediaSeasons } from "./mappers/mediaSeasonsMapper";
 import { config } from "../../config";
 
@@ -22,7 +22,8 @@ export async function getSeasons(params) {
 
     if (platform === 'media') {
       config.MPX.CUSTOM_FIELD_NAME = Object.keys(customFieldObject)[0];
-      const uniqueItems = getUniqueItems(items, `${config.MPX.CUSTOM_FIELD_NAME}$season`);
+      let uniqueItems = getUniqueItems(items, `${config.MPX.CUSTOM_FIELD_NAME}$season`);
+      uniqueItems = uniqueItems.sort(byField(`${config.MPX.CUSTOM_FIELD_NAME}$season`));
 
       return {
         type: {

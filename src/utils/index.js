@@ -187,3 +187,15 @@ export function getUniqueItems(arr, filterField) {
     return arr.find(arrItem => arrItem[filterField] === showTitle);
   });
 }
+
+export function byField(fieldName) {
+  return (a, b) => {
+    if (a[fieldName] > b[fieldName]) {
+      return 1;
+    }
+    if (a[fieldName] < b[fieldName]) {
+      return -1;
+    }
+    return 0;
+  }
+}
