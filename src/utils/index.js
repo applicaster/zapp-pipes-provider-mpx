@@ -101,7 +101,7 @@ export function setRange (url) {
 
 export function getPlatform (url) {
   const aUrl = parseUrl(url, true);
-  return `${aUrl.protocol}//${aUrl.host}` === config.MPX.MEDIA_BASE_URL ? 'media' : 'entertainment';
+  return aUrl.host === config.MPX.MEDIA_BASE_HOST ? 'media' : 'entertainment';
 }
 
 export function setFeedResponseForm (url) {
@@ -125,12 +125,19 @@ export function updateParamsFromUrl(params) {
   const { url } = parameters;
 
   try {
+    const platform = getPlatform(url);
     const aUrl = parseUrl(url, true);
-    const arr = aUrl.pathname.split('/');
-    arr.pop();
-    const path = arr.join('/');
 
-    config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
+    if(platform === 'media') {
+      config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`
+    } else {
+
+      const arr = aUrl.pathname.split('/');
+      arr.pop();
+      const path = arr.join('/');
+
+      config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
+    }
 
     const queryParams = {...aUrl.query};
 
@@ -140,7 +147,7 @@ export function updateParamsFromUrl(params) {
       }
     });
 
-    parameters.platform = getPlatform(url);
+    parameters.platform = platform;
     parameters.url = setFeedResponseForm(url);
 
     return parameters;
@@ -170,4 +177,37 @@ export function getCustomFields(obj) {
     newObj[newKey] = obj[key]
   });
   return newObj;
+}
+
+export function getUniqueItems(arr, filterField) {
+
+  const filterFieldArr = arr.map(arrItem => arrItem[filterField]);
+  const uniqueFilteredArr = [... new Set(filterFieldArr)];
+  return uniqueFilteredArr.map(showTitle => {
+    return arr.find(arrItem => arrItem[filterField] === showTitle);
+  });
+}
+
+export function byField(fieldName, extraFieldName) {
+  return (a, b) => {
+    switch (true) {
+      case (a[fieldName] > b[fieldName]):
+        return 1;
+      case (a[fieldName] < b[fieldName]):
+        return -1;
+      case (a[fieldName] === b[fieldName]):
+
+        switch (true) {
+          case (a[extraFieldName] > b[extraFieldName]):
+            return 1;
+          case (a[extraFieldName] < b[extraFieldName]):
+            return -1;
+          default:
+            return 0;
+        }
+
+      default:
+        return 0;
+    }
+  }
 }

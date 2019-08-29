@@ -5,7 +5,6 @@ export function mapMediaEpisodes(episodes) {
 
   const {
     guid: id,
-    title,
     pubDate: publishedAt,
     description: summary = '',
     content: [
@@ -16,6 +15,8 @@ export function mapMediaEpisodes(episodes) {
     ],
     thumbnails: images
   } = episodes;
+
+  const {showTitle} = getCustomFields(episodes);
 
   const published = convertDate(publishedAt);
 
@@ -38,7 +39,7 @@ export function mapMediaEpisodes(episodes) {
 
   return createEntry(types.video, {
     id,
-    title,
+    title: showTitle,
     metadata,
     images,
     media,
