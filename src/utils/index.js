@@ -188,14 +188,26 @@ export function getUniqueItems(arr, filterField) {
   });
 }
 
-export function byField(fieldName) {
+export function byField(fieldName, extraFieldName) {
   return (a, b) => {
-    if (a[fieldName] > b[fieldName]) {
-      return 1;
+    switch (true) {
+      case (a[fieldName] > b[fieldName]):
+        return 1;
+      case (a[fieldName] < b[fieldName]):
+        return -1;
+      case (a[fieldName] === b[fieldName]):
+
+        switch (true) {
+          case (a[extraFieldName] > b[extraFieldName]):
+            return 1;
+          case (a[extraFieldName] < b[extraFieldName]):
+            return -1;
+          default:
+            return 0;
+        }
+
+      default:
+        return 0;
     }
-    if (a[fieldName] < b[fieldName]) {
-      return -1;
-    }
-    return 0;
   }
 }

@@ -17,6 +17,7 @@ export async function getSeries(params) {
 
       data: {
         $xmlns: customFieldObject = {},
+        title,
         entries: items = []
       }
     } = await axios.get(`${url}`);
@@ -29,6 +30,7 @@ export async function getSeries(params) {
         type: {
           value: types.feed
         },
+        title,
         entry: uniqueItems.map(mapMediaSeries)
       };
     }
@@ -37,6 +39,7 @@ export async function getSeries(params) {
       type: {
         value: types.feed
       },
+      title,
       entry: items.map(mapSeries)
     };
   } catch (err) {

@@ -10,6 +10,7 @@ export async function getMovies(params) {
   try {
     const {
       data: {
+        title,
         entries: items = []
       }
     } = await axios.get(`${url}`);
@@ -18,6 +19,7 @@ export async function getMovies(params) {
       type: {
         value: types.feed
       },
+      title,
       entry: items.map(mapMovies)
     };
   } catch (err) {
