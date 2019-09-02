@@ -2,7 +2,7 @@ import {axios} from '../../axios/axios';
 import {mapEpisodes} from './mappers/episodesMapper';
 import {mapMediaEpisodes} from './mappers/mediaEpisodesMapper';
 import {types} from '../../types';
-import { byField, setRange } from "../../utils";
+import { byField, setRange, getShowTitle } from "../../utils";
 import { config } from "../../config";
 
 export async function getEpisodes(params) {
@@ -29,7 +29,7 @@ export async function getEpisodes(params) {
         type: {
           value: types.feed
         },
-        title,
+        title: getShowTitle(items),
         entry: items.map(mapMediaEpisodes)
       };
     }

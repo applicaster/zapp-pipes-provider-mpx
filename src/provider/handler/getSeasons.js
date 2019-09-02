@@ -30,7 +30,7 @@ export async function getSeasons(params) {
         type: {
           value: types.feed
         },
-        title,
+        title: items[0][`${config.MPX.CUSTOM_FIELD_NAME}$showTitle`],
         entry: uniqueItems.map(mapMediaSeasons)
       };
     }
