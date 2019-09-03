@@ -8,11 +8,6 @@ export function mapMediaSeries(series) {
     guid: id,
     pubDate: publishedAt,
     description: summary = '',
-    content: [
-      {
-        duration
-      }
-    ],
     thumbnails: images,
   } = series;
 
@@ -39,7 +34,6 @@ export function mapMediaSeries(series) {
   };
 
   const extensions = {
-    duration,
     cast,
     director,
     genre,

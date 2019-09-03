@@ -211,3 +211,7 @@ export function byField(fieldName, extraFieldName) {
     }
   }
 }
+
+export function getShowTitle(items) {
+  return items[0][`${config.MPX.CUSTOM_FIELD_NAME}$showTitle`];
+}

@@ -8,11 +8,6 @@ export function mapMediaSeasons(seasons) {
     guid: id,
     pubDate: publishedAt,
     description: summary = '',
-    content: [
-      {
-        duration
-      }
-    ],
     thumbnails: images,
   } = seasons;
 
@@ -40,8 +35,6 @@ export function mapMediaSeasons(seasons) {
   };
 
   const extensions = {
-    season,
-    duration,
     cast,
     director,
     genre,
@@ -51,7 +44,7 @@ export function mapMediaSeasons(seasons) {
 
   return createEntry(types.feed, {
     id,
-    title: showTitle,
+    title: `Season ${season}`,
     metadata,
     images,
     content,
