@@ -29,7 +29,6 @@ export async function getEpisodes(params) {
         type: {
           value: types.feed
         },
-        title: getShowTitle(items),
         entry: items.map(mapMediaEpisodes)
       };
     }
@@ -38,7 +37,6 @@ export async function getEpisodes(params) {
       type: {
         value: types.feed
       },
-      title,
       entry: items.map(mapEpisodes)
     };
   } catch (err) {

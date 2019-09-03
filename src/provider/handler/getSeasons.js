@@ -30,7 +30,6 @@ export async function getSeasons(params) {
         type: {
           value: types.feed
         },
-        title: getShowTitle(items),
         entry: uniqueItems.map(mapMediaSeasons)
       };
     }
@@ -39,7 +38,6 @@ export async function getSeasons(params) {
       type: {
         value: types.feed
       },
-      title,
       entry: items.map(mapSeasons)
     };
   } catch (err) {

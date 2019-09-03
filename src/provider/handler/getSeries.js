@@ -30,7 +30,6 @@ export async function getSeries(params) {
         type: {
           value: types.feed
         },
-        title,
         entry: uniqueItems.map(mapMediaSeries)
       };
     }
@@ -39,7 +38,6 @@ export async function getSeries(params) {
       type: {
         value: types.feed
       },
-      title,
       entry: items.map(mapSeries)
     };
   } catch (err) {
