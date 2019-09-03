@@ -1,6 +1,6 @@
 {
   "name": "@applicaster/zapp-pipes-provider-mpx-new",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "MPX datasource provider Test",
   "main": "lib/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/applicaster/zapp-pipes-provider-mpx.git"
+    "url": "https://github.com/applicaster/zapp-pipes-provider-mpx/tree/develop-test"
   },
   "keywords": [
     "applicaster",
@@ -23,9 +23,9 @@
   "author": "applicaster",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/applicaster/zapp-pipes-provider-mpx.git"
+    "url": "https://github.com/applicaster/zapp-pipes-provider-mpx/tree/develop-test"
   },
-  "homepage": "https://github.com/applicaster/zapp-pipes-provider-mpx.git#readme",
+  "homepage": "https://github.com/applicaster/zapp-pipes-provider-mpx/blob/develop-test/README.md",
   "dependencies": {
     "axios": "^0.16.2",
     "btoa": "^1.2.1",
