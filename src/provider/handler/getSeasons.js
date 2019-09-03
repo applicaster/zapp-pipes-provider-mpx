@@ -1,7 +1,7 @@
 import {mapSeasons} from './mappers/seasonsMapper';
 import {axios} from '../../axios/axios';
 import {types} from '../../types';
-import { byField, getUniqueItems, setRange } from "../../utils";
+import { byField, getUniqueItems, setRange, getShowTitle } from "../../utils";
 import { mapMediaSeasons } from "./mappers/mediaSeasonsMapper";
 import { config } from "../../config";
 
@@ -30,7 +30,7 @@ export async function getSeasons(params) {
         type: {
           value: types.feed
         },
-        title: items[0][`${config.MPX.CUSTOM_FIELD_NAME}$showTitle`],
+        title: getShowTitle(items),
         entry: uniqueItems.map(mapMediaSeasons)
       };
     }
