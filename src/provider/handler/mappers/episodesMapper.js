@@ -30,11 +30,10 @@ export function mapEpisodes(episodes) {
 
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
 
-  const media = {
-    content: {
-      type: 'video/hls',
-      src
-    }
+  const content = {
+    type: 'video/hls',
+    src
+
   };
 
   const metadata = {
@@ -57,7 +56,7 @@ export function mapEpisodes(episodes) {
     title,
     metadata,
     images,
-    media,
+    content,
     extensions,
   });
 }

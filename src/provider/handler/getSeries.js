@@ -14,13 +14,12 @@ export async function getSeries(params) {
 
   try {
     const {
-
       data: {
         $xmlns: customFieldObject = {},
         title,
         entries: items = []
       }
-    } = await axios.get(`${url}`);
+    } = await axios.get(url);
 
     if (platform === 'media') {
       config.MPX.CUSTOM_FIELD_NAME = Object.keys(customFieldObject)[0];
@@ -30,6 +29,7 @@ export async function getSeries(params) {
         type: {
           value: types.feed
         },
+        title,
         entry: uniqueItems.map(mapMediaSeries)
       };
     }
@@ -38,6 +38,7 @@ export async function getSeries(params) {
       type: {
         value: types.feed
       },
+      title,
       entry: items.map(mapSeries)
     };
   } catch (err) {

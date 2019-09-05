@@ -28,11 +28,9 @@ export function mapMediaEpisodes(episodes) {
 
   const published = convertDate(publishedAt);
 
-  const media = {
-    content: {
-      type: 'video/hls',
-      src
-    }
+  const content = {
+    type: 'video/hls',
+    src
   };
 
   const metadata = {
@@ -55,7 +53,7 @@ export function mapMediaEpisodes(episodes) {
     title: `Episode ${episode}`,
     metadata,
     images,
-    media,
+    content,
     extensions,
   });
 }
