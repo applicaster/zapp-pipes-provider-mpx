@@ -21,7 +21,7 @@ export function mapMediaSeasons(seasons) {
     season
   } = getCustomFields(seasons);
 
-  const dynamicUrl = `${config.MPX.API_BASE_URL}?form=cjson&byCustomValue={showTitle}{${showTitle}},{season}{${season}}`;
+  const dynamicUrl = `${config.MPX.URL}?form=cjson&byCustomValue={showTitle}{${showTitle}},{season}{${season}}`;
 
   const published = convertDate(publishedAt);
 

@@ -5,7 +5,7 @@ export const handler = nativeBridge => params => {
   let parameters = {...params};
   const {type} = parameters;
 
-  if (!type || !['series', 'seasons', 'episodes', 'movies'].includes(type)) {
+  if (!type || !['series', 'seasons', 'episodes', 'movies', 'show'].includes(type)) {
     return nativeBridge.throwError('unknown request');
   }
 

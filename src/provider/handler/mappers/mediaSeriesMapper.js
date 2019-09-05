@@ -1,5 +1,5 @@
 import { convertDate, createEntry, createSrc, getCustomFields } from "../../../utils";
-import {types} from "../../../types";
+import { types } from "../../../types";
 import { config } from "../../../config";
 
 export function mapMediaSeries(series) {
@@ -20,7 +20,7 @@ export function mapMediaSeries(series) {
     showTitle
   } = getCustomFields(series);
 
-  const dynamicUrl = `${config.MPX.API_BASE_URL}?form=cjson&byCustomValue={showTitle}{${showTitle}}`;
+  const dynamicUrl = `${config.MPX.URL}?form=cjson&byCustomValue={showTitle}{${showTitle}}`;
 
   const published = convertDate(publishedAt);
 

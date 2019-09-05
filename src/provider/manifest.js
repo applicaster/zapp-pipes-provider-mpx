@@ -1,5 +1,5 @@
 export const manifest = {
-  handlers: ['series', 'seasons', 'episodes', 'movies'],
+  handlers: ['series', 'seasons', 'episodes', 'movies', 'show'],
   help: {
     series: {
       description: 'retrieves the complete list of series',
@@ -29,5 +29,12 @@ export const manifest = {
         limit: 'optional. Limits the number of movies in response payload'
       }
     },
+    show: {
+      description: 'retrieves the list of seasons with metadata of series',
+      params: {
+        url: 'required. base64 encoded series feed url',
+        limit: 'optional. Limits the number of movies in response payload'
+      }
+    }
   }
 };
