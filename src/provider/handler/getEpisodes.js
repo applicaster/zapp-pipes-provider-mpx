@@ -19,7 +19,7 @@ export async function getEpisodes(params) {
         title,
         entries: items = []
       }
-    } = await axios.get(`${url}`);
+    } = await axios.get(url);
 
     if (platform === 'media') {
       config.MPX.CUSTOM_FIELD_NAME = Object.keys(customFieldObject)[0];
@@ -29,6 +29,7 @@ export async function getEpisodes(params) {
         type: {
           value: types.feed
         },
+        title,
         entry: items.map(mapMediaEpisodes)
       };
     }
@@ -37,6 +38,7 @@ export async function getEpisodes(params) {
       type: {
         value: types.feed
       },
+      title,
       entry: items.map(mapEpisodes)
     };
   } catch (err) {

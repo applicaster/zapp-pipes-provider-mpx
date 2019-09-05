@@ -19,7 +19,7 @@ export async function getSeasons(params) {
         title,
         entries: items = []
       }
-    } = await axios.get(`${url}`);
+    } = await axios.get(url);
 
     if (platform === 'media') {
       config.MPX.CUSTOM_FIELD_NAME = Object.keys(customFieldObject)[0];
@@ -30,6 +30,7 @@ export async function getSeasons(params) {
         type: {
           value: types.feed
         },
+        title,
         entry: uniqueItems.map(mapMediaSeasons)
       };
     }
@@ -38,6 +39,7 @@ export async function getSeasons(params) {
       type: {
         value: types.feed
       },
+      title,
       entry: items.map(mapSeasons)
     };
   } catch (err) {
