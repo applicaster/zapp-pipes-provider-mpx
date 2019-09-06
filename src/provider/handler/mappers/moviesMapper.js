@@ -1,6 +1,6 @@
 import * as R from "ramda";
-import {convertDate, createEntry} from "../../../utils";
-import {types} from "../../../types";
+import { convertDate, createEntry } from "../../../utils";
+import { types } from "../../../types";
 
 export function mapMovies(movies) {
 
@@ -29,11 +29,9 @@ export function mapMovies(movies) {
 
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
 
-  const media = {
-    content: {
-      type: 'video/hls',
-      src
-    }
+  const content = {
+    type: 'video/hls',
+    src
   };
 
   const metadata = {
@@ -55,7 +53,7 @@ export function mapMovies(movies) {
     title,
     metadata,
     images,
-    media,
+    content,
     extensions,
   });
 }

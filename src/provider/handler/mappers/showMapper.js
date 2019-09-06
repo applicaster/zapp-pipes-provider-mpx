@@ -1,12 +1,10 @@
 import * as R from "ramda";
-import { convertDate, createEntry, createSrc, getSeriesIdNumber } from "../../../utils";
+import { convertDate, createEntry } from "../../../utils";
 import { types } from "../../../types";
-import { config } from "../../../config";
 
-export function mapSeries(series) {
-
+export function mapShow(show) {
   const {
-    id,
+    id: seriesId,
     title,
     updated: updatedAt,
     pubDate: publishedAt,
@@ -16,20 +14,12 @@ export function mapSeries(series) {
     distributionRightIds,
     guid,
     thumbnails: images
-  } = series;
-
-  const seriesIdNumber = getSeriesIdNumber(id);
-
-  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.series}/${seriesIdNumber}`;
+  } = show;
 
   const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);
 
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
-
-  const content = {
-    src: createSrc('show', dynamicUrl),
-  };
 
   const metadata = {
     published,
@@ -45,11 +35,10 @@ export function mapSeries(series) {
   };
 
   return createEntry(types.feed, {
-    id,
-    title,
-    metadata,
-    content,
-    images,
-    extensions,
+      id: seriesId,
+      title,
+      metadata,
+      images,
+      extensions
   });
 }

@@ -33,7 +33,6 @@ export function mapEpisodes(episodes) {
   const content = {
     type: 'video/hls',
     src
-
   };
 
   const metadata = {
