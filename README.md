@@ -51,7 +51,12 @@ Bundling the data source provider to your app is done through the feed section i
 
 ## List of Handlers
 
-The mpx Datasource supports 4 handles - Series, Seasons, Episodes and Movies. All handlers support the same parameters, as described in the table below:
+The mpx Datasource supports both Media and Entertainment platform feeds.
+
+For Entertainment feeds 4 handlers are supported: Series, Seasons, Episodes and Movies.
+For Media feeds 3 handlers are supported: Series, Seasons and Episodes.
+
+All handlers support the same parameters, as described in the table below:
 
 
 | Parameter | Description                                                           | Type   | Example                           |
@@ -60,3 +65,6 @@ The mpx Datasource supports 4 handles - Series, Seasons, Episodes and Movies. Al
 | limit     | optional. If specified limits the number of items in response payload | Number | `limit=10`                        |
 
 Url example: `mpx://fetchData?type=seasons&url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLXR2LXNlYXNvbnM%3D`
+
+In order to use Media feeds, additional form parameter should be added.
+Example: `url=https://feed.media.theplatform.com/f/DGOYhC/3GRamMxxF0h0?form=cjson`
