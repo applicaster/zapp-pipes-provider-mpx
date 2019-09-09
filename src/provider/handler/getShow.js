@@ -31,12 +31,7 @@ export async function getShow(params) {
       },
       entry: [
         mapShow(item),
-        {
-          type: {
-            value: types.feed
-          },
-          entry: seasonsArr.map(mapSeriesTvSeasons)
-        }
+        ...seasonsArr.map(mapSeriesTvSeasons)
       ]
     }
 
