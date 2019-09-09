@@ -1,6 +1,10 @@
 # zapp-pipes-provider-mpx
 
 Datasource provider for mpx - Comcast's video management system. More on mpx can be found [here](https://www.comcasttechnologysolutions.com/our-portfolio/video-platform/mpx).
+The mpx Datasource supports both Media and Entertainment platform feeds. 
+Media feeds url typically begins with `feed.media.theplatform.com` hostname whereas Entertainment feeds url has `feed.entertainment.tv.theplatform.com` as a hostname.
+
+Media and Entertainment feeds are used with the same handlers. Each handler parses feeds according to the hostname of the feed url.
 
 ## Getting Started
 
@@ -51,8 +55,6 @@ Bundling the data source provider to your app is done through the feed section i
 
 ## List of Handlers
 
-The mpx Datasource supports both Media and Entertainment platform feeds.
-
 For Entertainment feeds 4 handlers are supported: Series, Seasons, Episodes and Movies.
 For Media feeds 3 handlers are supported: Series, Seasons and Episodes.
 
@@ -66,5 +68,21 @@ All handlers support the same parameters, as described in the table below:
 
 Url example: `mpx://fetchData?type=seasons&url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLXR2LXNlYXNvbnM%3D`
 
-In order to use Media feeds, additional form parameter should be added.
+## Media feeds notes
+
+- In order to use Media feeds, additional form parameter should be added to the url. Form parameter should be equal to `cjson` or `json`.
+
 Example: `url=https://feed.media.theplatform.com/f/DGOYhC/3GRamMxxF0h0?form=cjson`
+
+- In order to provide necessary information, custom fields should be included in the feed. 
+When submitting host data object representations that include a custom field, you must declare the appropriate namespace.
+Namespaces are separated with `$` from title of the custom field. 
+More about custom fields can be found [here](https://docs.theplatform.com/help/wsf-working-with-custom-fields).
+
+- Custom fields, that should be included:
+
+| Custom field name | Description                    | Type   | Example                           |
+| ----------------- | -------------------------------| ------ | --------------------------------- |
+| episode           | Episode number                 | Number | `pl1$episode: 1`                  |
+| season            | Season number                  | Number | `pl1$season: 3`                   |
+| showTitle         | Title of the show              | String | `pl1$showTitle: 'Manimal'`        |
