@@ -1,10 +1,11 @@
 # zapp-pipes-provider-mpx
 
 Datasource provider for mpx - Comcast's video management system. More on mpx can be found [here](https://www.comcasttechnologysolutions.com/our-portfolio/video-platform/mpx).
+
 The mpx Datasource supports both Media and Entertainment platform feeds. 
 Media feeds url typically begins with `feed.media.theplatform.com` hostname whereas Entertainment feeds url has `feed.entertainment.tv.theplatform.com` as a hostname.
 
-Media and Entertainment feeds are used with the same handlers. Each handler parses feeds according to the hostname of the feed url.
+The handlers use the hostname of the feed url to determine if the feed is of type Entertainment or Media and parse them accordingly.
 
 ## Getting Started
 
@@ -70,12 +71,12 @@ Url example: `mpx://fetchData?type=seasons&url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVud
 
 ## Media feeds notes
 
-- In order to use Media feeds, additional form parameter should be added to the url. Form parameter should be equal to `cjson` or `json`.
+- In order to use Media feeds, additional `form` parameter should be added to the url. The `form` parameter can have one of the following values: `cjson` or `json`.
 
 Example: `url=https://feed.media.theplatform.com/f/DGOYhC/3GRamMxxF0h0?form=cjson`
 
-- In order to provide necessary information, custom fields should be included in the feed. 
-When submitting host data object representations that include a custom field, you must declare the appropriate namespace.
+- The Media parser uses some custom fields that must be set in the feed. 
+When defining the Media object with custom fields you must declare the appropriate namespace.
 Namespaces are separated with `$` from title of the custom field. 
 More about custom fields can be found [here](https://docs.theplatform.com/help/wsf-working-with-custom-fields).
 
