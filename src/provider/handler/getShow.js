@@ -1,7 +1,8 @@
 import { axios } from '../../axios/axios';
 import { types } from "../../types";
 import { mapShow } from './mappers/showMapper';
-import { mapSeriesTvSeasons } from './mappers/seriesTvSeasonsMapper';
+import { config } from "../../config";
+import { createSrc } from "../../utils";
 
 export async function getShow(params) {
   const { url } = params;
@@ -12,18 +13,14 @@ export async function getShow(params) {
     } = await axios.get(url);
 
     const {
-      seriesTvSeasons,
       id: seriesId
     } = item;
 
-    const seasonsArr = seriesTvSeasons
-      .reverse()
-      .map(season => {
-      return {
-        ...season,
-        seriesId
-      }
-    });
+    const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${seriesId}`;
+
+    const content = {
+      src: createSrc('seasons', dynamicUrl),
+    };
 
     return {
       type: {
@@ -31,7 +28,12 @@ export async function getShow(params) {
       },
       entry: [
         mapShow(item),
-        ...seasonsArr.map(mapSeriesTvSeasons)
+        {
+          type: {
+            value: types.feed
+          },
+          content
+        }
       ]
     }
 
