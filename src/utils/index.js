@@ -1,5 +1,5 @@
 import moment from 'moment/moment';
-import {parse as parseUrl} from 'url';
+import {parse as parseUrl, format} from 'url';
 import btoa from "btoa";
 import {config} from '../config';
 import {types} from '../types';
@@ -12,14 +12,17 @@ export function createMediaItem(images) {
 
   const imagesKeys = Object.keys(images);
   let baseImage = false;
+  const widthArr = [];
 
-  return imagesKeys.map(imageKey => {
+  const result = imagesKeys.map(imageKey => {
 
     const {
       width,
       height,
       url
     } = images[imageKey];
+
+    widthArr.push(width);
 
     const key = `image_${width}_x_${height}`;
 
@@ -41,12 +44,25 @@ export function createMediaItem(images) {
       src: url,
       key: getBaseImage()
     }
-  })
+  });
+
+    if(!baseImage) {
+      const minWidth = Math.min(...widthArr);
+
+      const baseImageKey = imagesKeys.find(imageKey => {
+        const { width } = images[imageKey];
+        baseImage = true;
+        return width === minWidth
+      });
+
+      result[baseImageKey].key = config.IMAGE.baseKey;
+    }
+  return result;
 }
 
-export function convertDate(date, format) {
+export function convertDate(date, form) {
   const d = moment(date).toDate();
-  return moment(d).format(format);
+  return moment(d).format(form);
 }
 
 export function createEntry(typeValue, {id, title, content, extensions, metadata, images, media}) {
@@ -83,17 +99,45 @@ export function setRange (url) {
   return url
 }
 
+export function getPlatform (url) {
+  const aUrl = parseUrl(url, true);
+  return aUrl.host === config.MPX.MEDIA_BASE_HOST ? 'media' : 'entertainment';
+}
+
+export function setFeedResponseForm (url) {
+  const aUrl = parseUrl(url, true);
+  Object.keys(aUrl.query).forEach(key => {
+      if (key === 'form') {
+        aUrl.query[key] = 'cjson';
+      }
+  });
+
+  return format({
+    protocol: aUrl.protocol,
+    hostname: aUrl.hostname,
+    pathname: aUrl.pathname,
+    query: aUrl.query
+  });
+}
+
 export function updateParamsFromUrl(params) {
   const parameters = {...params};
   const { url } = parameters;
 
   try {
+    const platform = getPlatform(url);
     const aUrl = parseUrl(url, true);
-    const arr = aUrl.pathname.split('/');
-    arr.pop();
-    const path = arr.join('/');
 
-    config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
+    if(platform === 'media') {
+      config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`
+    } else {
+
+      const arr = aUrl.pathname.split('/');
+      arr.pop();
+      const path = arr.join('/');
+
+      config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
+    }
 
     const queryParams = {...aUrl.query};
 
@@ -102,6 +146,9 @@ export function updateParamsFromUrl(params) {
         parameters[key] = queryParams[key];
       }
     });
+
+    parameters.platform = platform;
+    parameters.url = setFeedResponseForm(url);
 
     return parameters;
   } catch (err) {
@@ -119,4 +166,52 @@ export function b64EncodeUnicode(str) {
 export function createSrc (type, url) {
   const encodedUrl = b64EncodeUnicode(url);
   return `${config.PROVIDER.name}://fetchData?type=${type}&url=${encodedUrl}`;
+}
+
+export function getCustomFields(obj) {
+  const keys = Object.keys(obj);
+  const customKeys = keys.filter(key => key.includes('$'));
+  const newObj = {};
+  customKeys.forEach(key => {
+    const newKey = key.slice(key.indexOf('$') + 1);
+    newObj[newKey] = obj[key]
+  });
+  return newObj;
+}
+
+export function getUniqueItems(arr, filterField) {
+
+  const filterFieldArr = arr.map(arrItem => arrItem[filterField]);
+  const uniqueFilteredArr = [... new Set(filterFieldArr)];
+  return uniqueFilteredArr.map(showTitle => {
+    return arr.find(arrItem => arrItem[filterField] === showTitle);
+  });
+}
+
+export function byField(fieldName, extraFieldName) {
+  return (a, b) => {
+    switch (true) {
+      case (a[fieldName] > b[fieldName]):
+        return 1;
+      case (a[fieldName] < b[fieldName]):
+        return -1;
+      case (a[fieldName] === b[fieldName]):
+
+        switch (true) {
+          case (a[extraFieldName] > b[extraFieldName]):
+            return 1;
+          case (a[extraFieldName] < b[extraFieldName]):
+            return -1;
+          default:
+            return 0;
+        }
+
+      default:
+        return 0;
+    }
+  }
+}
+
+export function getShowTitle(items) {
+  return items[0][`${config.MPX.CUSTOM_FIELD_NAME}$showTitle`];
 }
