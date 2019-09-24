@@ -2,6 +2,11 @@
 
 Datasource provider for mpx - Comcast's video management system. More on mpx can be found [here](https://www.comcasttechnologysolutions.com/our-portfolio/video-platform/mpx).
 
+The mpx Datasource supports both Media and Entertainment platform feeds. 
+Media feeds url typically begins with `feed.media.theplatform.com` hostname whereas Entertainment feeds url has `feed.entertainment.tv.theplatform.com` as a hostname.
+
+The handlers use the hostname of the feed url to determine if the feed is of type Entertainment or Media and parse them accordingly.
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -51,7 +56,10 @@ Bundling the data source provider to your app is done through the feed section i
 
 ## List of Handlers
 
-The mpx Datasource supports 4 handles - Series, Seasons, Episodes and Movies. All handlers support the same parameters, as described in the table below:
+For Entertainment feeds 4 handlers are supported: Series, Seasons, Episodes and Movies.
+For Media feeds 3 handlers are supported: Series, Seasons and Episodes.
+
+All handlers support the same parameters, as described in the table below:
 
 
 | Parameter | Description                                                           | Type   | Example                           |
@@ -60,3 +68,22 @@ The mpx Datasource supports 4 handles - Series, Seasons, Episodes and Movies. Al
 | limit     | optional. If specified limits the number of items in response payload | Number | `limit=10`                        |
 
 Url example: `mpx://fetchData?type=seasons&url=aHR0cDovL2ZlZWQuZW50ZXJ0YWlubWVudC50di50aGVwbGF0Zm9ybS5jb20vZi85X3lXaEMvYXBsY3N0cjMwLXR2LXNlYXNvbnM%3D`
+
+## Media feeds notes
+
+- In order to use Media feeds, additional `form` parameter should be added to the url. The `form` parameter can have one of the following values: `cjson` or `json`.
+
+Example: `url=https://feed.media.theplatform.com/f/DGOYhC/3GRamMxxF0h0?form=cjson`
+
+- The Media parser uses some custom fields that must be set in the feed. 
+When defining the Media object with custom fields you must declare the appropriate namespace.
+Namespaces are separated with `$` from title of the custom field. 
+More about custom fields can be found [here](https://docs.theplatform.com/help/wsf-working-with-custom-fields).
+
+- Custom fields, that should be included:
+
+| Custom field name | Description                    | Type   | Example                           |
+| ----------------- | -------------------------------| ------ | --------------------------------- |
+| episode           | Episode number                 | Number | `pl1$episode: 1`                  |
+| season            | Season number                  | Number | `pl1$season: 3`                   |
+| showTitle         | Title of the show              | String | `pl1$showTitle: 'Manimal'`        |
