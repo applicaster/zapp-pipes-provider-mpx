@@ -84,10 +84,10 @@ export function createEntry(typeValue, {id, title, content, extensions, metadata
     id,
     title,
     ...metadata,
-    content,
     media,
-    extensions,
-    media_group
+    media_group,
+    content,
+    extensions
   };
 }
 

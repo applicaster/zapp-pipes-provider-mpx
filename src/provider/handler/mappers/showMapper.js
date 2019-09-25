@@ -1,6 +1,7 @@
 import * as R from "ramda";
-import { convertDate, createEntry } from "../../../utils";
+import { convertDate, createEntry, createSrc } from "../../../utils";
 import { types } from "../../../types";
+import { config } from "../../../config";
 
 export function mapShow(show) {
   const {
@@ -15,6 +16,12 @@ export function mapShow(show) {
     guid,
     thumbnails: images
   } = show;
+
+  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${seriesId}&sort=${config.MPX.SORT_BY.seasons}`;
+
+  const content = {
+    src: createSrc('seasons', dynamicUrl),
+  };
 
   const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);
@@ -39,6 +46,7 @@ export function mapShow(show) {
       title,
       metadata,
       images,
+      content,
       extensions
   });
 }
