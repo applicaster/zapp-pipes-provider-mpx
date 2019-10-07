@@ -14,9 +14,7 @@ export async function getShow(params) {
       type: {
         value: types.feed
       },
-      entry: [
-        mapShow(item)
-      ]
+      entry: mapShow(item)
     }
 
   } catch (err) {

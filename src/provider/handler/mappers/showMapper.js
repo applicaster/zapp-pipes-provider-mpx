@@ -41,12 +41,16 @@ export function mapShow(show) {
     credits,
   };
 
-  return createEntry(types.feed, {
+  return  [
+    createEntry(types.feed, {
       id: seriesId,
       title,
       metadata,
       images,
-      content,
       extensions
-  });
+    }),
+    createEntry(types.feed, {
+      content
+    })
+  ]
 }
