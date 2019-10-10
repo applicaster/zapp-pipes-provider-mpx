@@ -14,10 +14,11 @@ export async function getSeasons(params) {
     const {
       data: {
         $xmlns: customFieldObject = {},
-        title,
         entries: items = []
       }
     } = await axios.get(url);
+
+    const { seriesTitle: title } = items[0];
 
     if (platform === 'media') {
 

@@ -28,5 +28,6 @@ export function mapSeasons(seasons) {
     title,
     content,
     extensions,
+    images: config.IMAGES
   });
 }

@@ -19,6 +19,8 @@ export function mapShow(show) {
 
   const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${seriesId}&sort=${config.MPX.SORT_BY.seasons}`;
 
+  config.IMAGES = images;
+
   const content = {
     src: createSrc('seasons', dynamicUrl),
   };
@@ -46,7 +48,7 @@ export function mapShow(show) {
       id: seriesId,
       title,
       metadata,
-      images,
+      content,
       extensions
     }),
     createEntry(types.feed, {
