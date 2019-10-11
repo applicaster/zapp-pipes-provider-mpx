@@ -18,9 +18,8 @@ export async function getSeasons(params) {
       }
     } = await axios.get(url);
 
-    const { seriesTitle: title } = items[0];
-
     if (platform === 'media') {
+      const { title } = items[0];
 
       let uniqueItems = getUniqueItems(items, customFieldObject, 'season');
       uniqueItems = uniqueItems.sort(byField('season'));
@@ -33,6 +32,8 @@ export async function getSeasons(params) {
         entry: uniqueItems.map(mapMediaSeasons)
       };
     }
+
+    const { seriesTitle: title } = items[0];
 
     return {
       type: {

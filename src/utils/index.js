@@ -137,7 +137,7 @@ export function updateParamsFromUrl(params) {
     const arr = aUrl.pathname.split('/');
     arr.pop();
 
-    if(type === 'show') {
+    if(type === 'show' && platform !== 'media') {
       arr.pop();
     }
 
