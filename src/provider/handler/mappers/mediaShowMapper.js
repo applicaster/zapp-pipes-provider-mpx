@@ -21,7 +21,7 @@ export function mapMediaShow(show) {
     showTitle
   } = getCustomFields(show);
 
-  const dynamicUrl = `${config.MPX.API_BASE_URL}?form=cjson&byTitle=${title}`;
+  const dynamicUrl = `${config.MPX.API_BASE_URL}?form=cjson&byCustomValue={showTitle}{${showTitle}}`;
 
   const published = convertDate(publishedAt);
 

@@ -9,7 +9,7 @@ export const handler = nativeBridge => params => {
     return nativeBridge.throwError('unknown request');
   }
 
-   parameters = updateParamsFromUrl(parameters);
+  parameters = updateParamsFromUrl(parameters);
 
   return commands[type](parameters)
     .then(nativeBridge.sendResponse)
