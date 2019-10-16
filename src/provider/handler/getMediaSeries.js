@@ -1,29 +1,31 @@
 import { axios } from '../../axios/axios';
-import { mapSeries } from './mappers/seriesMapper';
 import { types } from '../../types';
-import { setRange } from "../../utils";
+import { setRange, getUniqueItems } from "../../utils";
+import { mapMediaSeries } from "./mappers/mediaSeriesMapper";
 
-export async function getSeries(params) {
+export async function getMediaSeries(params) {
   let { url } = params;
-
-  const { apiBaseUrl } = params;
   url = setRange(url);
 
   try {
     const {
       data: {
+        $xmlns: customFieldObject = {},
         title,
         entries: items = []
       }
     } = await axios.get(url);
+
+    const uniqueItems = getUniqueItems(items, customFieldObject, 'showTitle');
 
     return {
       type: {
         value: types.feed
       },
       title,
-      entry: items.map((item) => mapSeries(item, apiBaseUrl))
+      entry: uniqueItems.map((item) => mapMediaSeries(item, url))
     };
+
   } catch (err) {
     throw err;
   }

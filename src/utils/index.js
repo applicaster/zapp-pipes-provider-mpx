@@ -132,7 +132,7 @@ export function updateParamsFromUrl(params) {
     const platform = getPlatform(url);
     const aUrl = parseUrl(url, true);
 
-    config.MPX.URL = `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`;
+    // config.MPX.URL = `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`;
 
     const arr = aUrl.pathname.split('/');
     arr.pop();
@@ -143,7 +143,8 @@ export function updateParamsFromUrl(params) {
 
     const path = arr.join('/');
 
-    config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
+   // config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
+    parameters.apiBaseUrl = `${aUrl.protocol}//${aUrl.host}${path}`;
 
     const queryParams = {...aUrl.query};
 

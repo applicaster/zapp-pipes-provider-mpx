@@ -2,7 +2,7 @@ import { convertDate, createEntry, createSrc, getCustomFields, getSeriesIdNumber
 import { types } from "../../../types";
 import { config } from "../../../config";
 
-export function mapMediaSeries(series) {
+export function mapMediaSeries(series, url) {
 
   const {
     id,
@@ -10,7 +10,7 @@ export function mapMediaSeries(series) {
     title,
     pubDate: publishedAt,
     description: summary = '',
-    thumbnails: images,
+    thumbnails: images
   } = series;
 
   const {
@@ -24,7 +24,7 @@ export function mapMediaSeries(series) {
 
   const seriesIdNumber = getSeriesIdNumber(id);
 
-  const dynamicUrl = `${config.MPX.URL}/${seriesIdNumber}?form=cjson`;
+  const dynamicUrl = `${url}/${seriesIdNumber}?form=cjson`;
 
   const published = convertDate(publishedAt);
 

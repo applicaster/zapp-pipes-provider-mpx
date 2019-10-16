@@ -1,35 +1,19 @@
 import { mapSeasons } from './mappers/seasonsMapper';
 import { axios } from '../../axios/axios';
 import { types } from '../../types';
-import { byField, getUniqueItems, setRange } from "../../utils";
-import { mapMediaSeasons } from "./mappers/mediaSeasonsMapper";
+import { setRange } from "../../utils";
 
 export async function getSeasons(params) {
   let { url } = params;
-  const { platform } = params;
 
   url = setRange(url);
 
   try {
     const {
       data: {
-        $xmlns: customFieldObject = {},
         entries: items = []
       }
     } = await axios.get(url);
-
-    if (platform === 'media') {
-
-      let uniqueItems = getUniqueItems(items, customFieldObject, 'season');
-      uniqueItems = uniqueItems.sort(byField('season'));
-
-      return {
-        type: {
-          value: types.feed
-        },
-        entry: uniqueItems.map(mapMediaSeasons)
-      };
-    }
 
     const { seriesTitle: title } = items[0];
 

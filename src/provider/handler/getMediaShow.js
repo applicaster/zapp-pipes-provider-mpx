@@ -1,19 +1,21 @@
 import { axios } from '../../axios/axios';
 import { types } from "../../types";
-import { mapShow } from './mappers/showMapper';
+import { mapMediaShow } from "./mappers/mediaShowMapper";
 
-export async function getShow(params) {
+export async function getMediaShow(params) {
   const { url } = params;
 
   try {
-    const item = await axios.get(url);
+    const {
+      data: item,
+    } = await axios.get(url);
 
     return {
       type: {
         value: types.feed
       },
-      entry: mapShow(item)
-    }
+      entry: mapMediaShow(item)
+    };
 
   } catch (err) {
     throw err;
