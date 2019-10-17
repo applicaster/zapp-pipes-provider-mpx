@@ -6,7 +6,7 @@ export async function getShow(params) {
   const { url } = params;
 
   try {
-    const item = await axios.get(url);
+    const { data: item } = await axios.get(url);
 
     return {
       type: {

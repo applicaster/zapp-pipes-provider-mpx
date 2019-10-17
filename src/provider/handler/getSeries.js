@@ -6,7 +6,7 @@ import { setRange } from "../../utils";
 export async function getSeries(params) {
   let { url } = params;
 
-  const { apiBaseUrl } = params;
+  const { entertainmentBaseUrl } = params;
   url = setRange(url);
 
   try {
@@ -22,7 +22,7 @@ export async function getSeries(params) {
         value: types.feed
       },
       title,
-      entry: items.map((item) => mapSeries(item, apiBaseUrl))
+      entry: items.map((item) => mapSeries(item, entertainmentBaseUrl))
     };
   } catch (err) {
     throw err;

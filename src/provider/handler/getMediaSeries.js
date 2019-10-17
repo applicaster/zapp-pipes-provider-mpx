@@ -5,6 +5,7 @@ import { mapMediaSeries } from "./mappers/mediaSeriesMapper";
 
 export async function getMediaSeries(params) {
   let { url } = params;
+  const { mediaBaseUrl } = params;
   url = setRange(url);
 
   try {
@@ -23,7 +24,7 @@ export async function getMediaSeries(params) {
         value: types.feed
       },
       title,
-      entry: uniqueItems.map((item) => mapMediaSeries(item, url))
+      entry: uniqueItems.map((item) => mapMediaSeries(item, mediaBaseUrl))
     };
 
   } catch (err) {

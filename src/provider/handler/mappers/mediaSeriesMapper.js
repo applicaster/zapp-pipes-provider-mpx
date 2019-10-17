@@ -1,8 +1,7 @@
 import { convertDate, createEntry, createSrc, getCustomFields, getSeriesIdNumber } from "../../../utils";
 import { types } from "../../../types";
-import { config } from "../../../config";
 
-export function mapMediaSeries(series, url) {
+export function mapMediaSeries(series, mediaBaseUrl) {
 
   const {
     id,
@@ -24,7 +23,7 @@ export function mapMediaSeries(series, url) {
 
   const seriesIdNumber = getSeriesIdNumber(id);
 
-  const dynamicUrl = `${url}/${seriesIdNumber}?form=cjson`;
+  const dynamicUrl = `${mediaBaseUrl}/${seriesIdNumber}?form=cjson`;
 
   const published = convertDate(publishedAt);
 

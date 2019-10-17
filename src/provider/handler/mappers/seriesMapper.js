@@ -18,8 +18,6 @@ export function mapSeries(series, apiBaseUrl) {
     thumbnails: images
   } = series;
 
-  console.log(apiBaseUrl, 'ssssssssss');
-
   const seriesIdNumber = getSeriesIdNumber(id);
 
   const dynamicUrl = `${apiBaseUrl}/${config.MPX.ENDPOINTS.series}/${seriesIdNumber}`;
