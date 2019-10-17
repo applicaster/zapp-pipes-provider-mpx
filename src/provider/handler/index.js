@@ -1,4 +1,4 @@
-import {commands} from './comands';
+import {getCommands} from './comands';
 import { updateParamsFromUrl } from '../../utils';
 
 export const handler = nativeBridge => params => {
@@ -9,9 +9,9 @@ export const handler = nativeBridge => params => {
     return nativeBridge.throwError('unknown request');
   }
 
-   parameters = updateParamsFromUrl(parameters);
+  parameters = updateParamsFromUrl(parameters);
 
-  return commands[type](parameters)
+  return getCommands(parameters)[type](parameters)
     .then(nativeBridge.sendResponse)
     .catch(nativeBridge.throwError);
 };

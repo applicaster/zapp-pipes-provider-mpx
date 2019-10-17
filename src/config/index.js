@@ -25,5 +25,6 @@ export const config = {
     baseMaxWidth: 800,
     baseMaxHeight: 500,
     baseKey: 'image_base'
-  }
+  },
+  IMAGES: undefined
 };

@@ -133,11 +133,12 @@ export function updateParamsFromUrl(params) {
     const aUrl = parseUrl(url, true);
 
     config.MPX.URL = `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`;
+    parameters.mediaBaseUrl = `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`;
 
     const arr = aUrl.pathname.split('/');
     arr.pop();
 
-    if(type === 'show') {
+    if(type === 'show' && platform !== 'media') {
       arr.pop();
     }
 
@@ -153,6 +154,7 @@ export function updateParamsFromUrl(params) {
       }
     });
 
+    parameters.entertainmentBaseUrl = `${aUrl.protocol}//${aUrl.host}${path}`;
     parameters.platform = platform;
     parameters.url = setFeedResponseForm(url);
 

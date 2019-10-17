@@ -3,7 +3,7 @@ import { convertDate, createEntry, createSrc, getSeriesIdNumber } from "../../..
 import { types } from "../../../types";
 import { config } from "../../../config";
 
-export function mapSeries(series) {
+export function mapSeries(series, apiBaseUrl) {
 
   const {
     id,
@@ -20,7 +20,7 @@ export function mapSeries(series) {
 
   const seriesIdNumber = getSeriesIdNumber(id);
 
-  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.series}/${seriesIdNumber}`;
+  const dynamicUrl = `${apiBaseUrl}/${config.MPX.ENDPOINTS.series}/${seriesIdNumber}`;
 
   const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);
