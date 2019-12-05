@@ -7,14 +7,14 @@
   "platform": null,
   "author_name": "Olga Duk",
   "author_email": "oduk@scand.com",
-  "manifest_version": "0.1.27",
+  "manifest_version": "0.1.28",
   "name": "MPX Datasource Test",
   "description": "MPX datasource test",
   "type": "data_source_provider",
   "identifier": "mpx-dsp-test",
   "ui_builder_support": true,
   "dependency_name": "@applicaster/zapp-pipes-provider-mpx-new",
-  "dependency_version": "0.1.27",
+  "dependency_version": "0.1.28",
   "whitelisted_account_ids": [
     "5a4516fa41442c000b0195d6",
     "5c85455842b06d000836d041"
