@@ -95,12 +95,12 @@ export function getSeriesIdNumber(id) {
   return id.split('/').pop();
 }
 
-export function setRange (url) {
-  if (url.includes('&limit=')) {
-    const feedUrl = url.slice(0, url.indexOf('&limit'));
-    return feedUrl.includes('?') ? url.replace('limit=', 'range=-') : url.replace('&limit=', '?range=-');
+export function setRange(url, limit) {
+  let resultUrl = url;
+  if (limit) {
+    resultUrl = url.includes('?') ? `${url}&range=-${limit}`: `${url}?range=-${limit}`;
   }
-  return url
+  return resultUrl;
 }
 
 export function getPlatform (url) {
@@ -126,7 +126,7 @@ export function setFeedResponseForm (url) {
 
 export function updateParamsFromUrl(params) {
   const parameters = {...params};
-  const { url, type } = parameters;
+  const { url, type, limit } = parameters;
 
   try {
     const platform = getPlatform(url);
@@ -156,7 +156,7 @@ export function updateParamsFromUrl(params) {
 
     parameters.entertainmentBaseUrl = `${aUrl.protocol}//${aUrl.host}${path}`;
     parameters.platform = platform;
-    parameters.url = setFeedResponseForm(url);
+    parameters.url = setFeedResponseForm(setRange(url, limit));
 
     return parameters;
   } catch (err) {
@@ -185,45 +185,4 @@ export function getCustomFields(obj) {
     newObj[newKey] = obj[key]
   });
   return newObj;
-}
-
-export function getUniqueItems(arr, customFieldObject, field) {
-
-  config.MPX.CUSTOM_FIELD_NAME = Object.keys(customFieldObject)[0];
-
-  const fieldName = `${config.MPX.CUSTOM_FIELD_NAME}$${field}`;
-
-  const filterFieldArr = arr.map(arrItem => arrItem[fieldName]);
-  const uniqueFilteredArr = [... new Set(filterFieldArr)];
-  return uniqueFilteredArr.map(showTitle => {
-    return arr.find(arrItem => arrItem[fieldName] === showTitle);
-  });
-}
-
-export function byField(field, extraField) {
-
-  const fieldName = `${config.MPX.CUSTOM_FIELD_NAME}$${field}`;
-  const extraFieldName = `${config.MPX.CUSTOM_FIELD_NAME}$${extraField}`;
-
-  return (a, b) => {
-    switch (true) {
-      case (a[fieldName] > b[fieldName]):
-        return 1;
-      case (a[fieldName] < b[fieldName]):
-        return -1;
-      case (a[fieldName] === b[fieldName]):
-
-        switch (true) {
-          case (a[extraFieldName] > b[extraFieldName]):
-            return 1;
-          case (a[extraFieldName] < b[extraFieldName]):
-            return -1;
-          default:
-            return 0;
-        }
-
-      default:
-        return 0;
-    }
-  }
 }

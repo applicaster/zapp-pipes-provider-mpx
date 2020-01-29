@@ -11,7 +11,7 @@ export const handler = nativeBridge => params => {
 
   parameters = updateParamsFromUrl(parameters);
 
-  return getCommands(parameters)[type](parameters)
+  return getCommands()[type](parameters)
     .then(nativeBridge.sendResponse)
     .catch(nativeBridge.throwError);
 };

@@ -1,11 +1,13 @@
 import { axios } from '../../axios/axios';
 import { mapEpisodes } from './mappers/episodesMapper';
+import { mapMediaEpisodes } from "./mappers/mediaEpisodesMapper";
 import { types } from '../../types';
-import { setRange } from "../../utils";
+
 
 export async function getEpisodes(params) {
-  let { url } = params;
-  url = setRange(url);
+  const { url, platform } = params;
+
+  const mapperCallback = (platform === 'media') ? mapMediaEpisodes : mapEpisodes;
 
   try {
     const  {
@@ -20,7 +22,7 @@ export async function getEpisodes(params) {
         value: types.feed
       },
       title,
-      entry: items.map(mapEpisodes)
+      entry: items.map(mapperCallback)
     };
   } catch (err) {
     throw err;
