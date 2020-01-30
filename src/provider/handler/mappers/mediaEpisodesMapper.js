@@ -4,7 +4,10 @@ import {types} from "../../../types";
 export function mapMediaEpisodes(episodes) {
 
   const {
-    guid: id,
+    id,
+    guid,
+    title,
+    updated: updatedAt,
     pubDate: publishedAt,
     description: summary = '',
     content: [
@@ -26,7 +29,8 @@ export function mapMediaEpisodes(episodes) {
     episode
   } = getCustomFields(episodes);
 
-  const published = convertDate(publishedAt);
+  const published = publishedAt ? convertDate(publishedAt) : undefined;
+  const updated = updatedAt ? convertDate(updatedAt) : undefined;
 
   const content = {
     type: 'video/hls',
@@ -36,24 +40,27 @@ export function mapMediaEpisodes(episodes) {
   const metadata = {
     summary,
     published,
+    updated
   };
 
   const extensions = {
+    alternate_id: guid,
     duration,
     cast,
     director,
     genre,
     rating,
     longDescription,
-    season
+    season: season ? `Season ${season}` : undefined,
+    episode: episode ? `Episode ${episode}` : undefined
   };
 
   return createEntry(types.video, {
-    id,
-    title: `Episode ${episode}`,
+    id: id || guid,
+    title,
     metadata,
     images,
     content,
-    extensions,
+    extensions
   });
 }

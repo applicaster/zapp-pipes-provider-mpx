@@ -1,13 +1,10 @@
 import { axios } from '../../axios/axios';
 import { mapSeries } from './mappers/seriesMapper';
 import { types } from '../../types';
-import { setRange } from "../../utils";
+
 
 export async function getSeries(params) {
-  let { url } = params;
-
-  const { entertainmentBaseUrl } = params;
-  url = setRange(url);
+  const { url, entertainmentBaseUrl } = params;
 
   try {
     const {

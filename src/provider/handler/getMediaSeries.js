@@ -1,12 +1,10 @@
 import { axios } from '../../axios/axios';
 import { types } from '../../types';
-import { setRange, getUniqueItems } from "../../utils";
+import { getUniqueItems } from "../../utils";
 import { mapMediaSeries } from "./mappers/mediaSeriesMapper";
 
 export async function getMediaSeries(params) {
-  let { url } = params;
-  const { mediaBaseUrl } = params;
-  url = setRange(url);
+  const { url, mediaBaseUrl } = params;
 
   try {
     const {
