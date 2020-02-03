@@ -7,14 +7,14 @@
   "platform": null,
   "author_name": "Olga Duk",
   "author_email": "oduk@scand.com",
-  "manifest_version": "1.2.0",
+  "manifest_version": "1.2.1",
   "name": "MPX Datasource",
   "description": "MPX datasource",
   "type": "data_source_provider",
   "identifier": "mpx-dsp",
   "ui_builder_support": true,
   "dependency_name": "@applicaster/zapp-pipes-provider-mpx",
-  "dependency_version": "1.2.0",
+  "dependency_version": "1.2.1",
   "whitelisted_account_ids": [
     "5a4516fa41442c000b0195d6",
     "5c85455842b06d000836d041"
@@ -59,7 +59,6 @@
       "value": "movies",
       "documentation": {
         "link": "https://github.com/applicaster/zapp-pipes-provider-mpx#readme",
-        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx/blob/develop-test/README.md",
         "input_description": "",
         "input_placeholder": "",
         "input_description_image_url": ""
@@ -69,7 +68,7 @@
       "label": "Show",
       "value": "show",
       "documentation": {
-        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx/blob/develop-test/README.md",
+        "link": "https://github.com/applicaster/zapp-pipes-provider-mpx#readme",
         "input_description": "",
         "input_placeholder": "",
         "input_description_image_url": ""
