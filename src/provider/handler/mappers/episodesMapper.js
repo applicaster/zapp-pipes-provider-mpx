@@ -7,7 +7,6 @@ export function mapEpisodes(episodes) {
 
   const {
     id,
-    title,
     updated: updatedAt,
     pubDate: publishedAt,
     description: summary = '',
@@ -17,6 +16,7 @@ export function mapEpisodes(episodes) {
     tvSeasonNumber,
     media: [
       {
+        title,
         publicUrl: src
       }
     ],

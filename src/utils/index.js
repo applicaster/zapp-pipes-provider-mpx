@@ -95,12 +95,18 @@ export function getSeriesIdNumber(id) {
   return id.split('/').pop();
 }
 
-export function setRange (url) {
-  if (url.includes('&limit=')) {
-    const feedUrl = url.slice(0, url.indexOf('&limit'));
-    return feedUrl.includes('?') ? url.replace('limit=', 'range=-') : url.replace('&limit=', '?range=-');
-  }
-  return url
+export function setRange(url, limit) {
+  const aUrl = parseUrl(url, true);
+
+   if(limit) {
+     return format({
+       protocol: aUrl.protocol,
+       hostname: aUrl.hostname,
+       pathname: aUrl.pathname,
+       query: { ...aUrl.query, 'range': `-${limit}` }
+     });
+   }
+   return url;
 }
 
 export function getPlatform (url) {
@@ -126,7 +132,7 @@ export function setFeedResponseForm (url) {
 
 export function updateParamsFromUrl(params) {
   const parameters = {...params};
-  const { url, type } = parameters;
+  const { url, type, limit } = parameters;
 
   try {
     const platform = getPlatform(url);
@@ -156,7 +162,7 @@ export function updateParamsFromUrl(params) {
 
     parameters.entertainmentBaseUrl = `${aUrl.protocol}//${aUrl.host}${path}`;
     parameters.platform = platform;
-    parameters.url = setFeedResponseForm(url);
+    parameters.url = setFeedResponseForm(setRange(url, limit));
 
     return parameters;
   } catch (err) {

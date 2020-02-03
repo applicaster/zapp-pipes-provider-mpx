@@ -1,12 +1,11 @@
 import { axios } from '../../axios/axios';
 import { mapMediaEpisodes } from './mappers/mediaEpisodesMapper';
 import { types } from '../../types';
-import { byField, setRange } from "../../utils";
+import { byField } from "../../utils";
 import { config } from "../../config";
 
 export async function getMediaEpisodes(params) {
-  let { url } = params;
-  url = setRange(url);
+  const { url } = params;
 
   try {
     const  {
