@@ -1,14 +1,15 @@
-import { convertDate, createEntry, createSrc, getCustomFields } from "../../../utils";
-import {types} from "../../../types";
-import { config } from "../../../config";
+import { convertDate, createEntry, createSrc, getCustomFields, getSeriesIdNumber } from "../../../utils";
+import { types } from "../../../types";
 
-export function mapMediaSeries(series) {
+export function mapMediaSeries(series, mediaBaseUrl) {
 
   const {
-    guid: id,
+    id,
+    guid,
+    title,
     pubDate: publishedAt,
     description: summary = '',
-    thumbnails: images,
+    thumbnails: images
   } = series;
 
   const {
@@ -20,12 +21,14 @@ export function mapMediaSeries(series) {
     showTitle
   } = getCustomFields(series);
 
-  const dynamicUrl = `${config.MPX.API_BASE_URL}?form=cjson&byCustomValue={showTitle}{${showTitle}}`;
+  const seriesIdNumber = getSeriesIdNumber(id);
+
+  const dynamicUrl = `${mediaBaseUrl}/${seriesIdNumber}?form=cjson`;
 
   const published = convertDate(publishedAt);
 
   const content = {
-    src: createSrc('seasons', dynamicUrl),
+    src: createSrc('show', dynamicUrl),
   };
 
   const metadata = {
@@ -34,16 +37,18 @@ export function mapMediaSeries(series) {
   };
 
   const extensions = {
+    alternate_id: guid,
     cast,
     director,
     genre,
     rating,
-    longDescription
+    longDescription,
+    showTitle
   };
 
   return createEntry(types.feed, {
     id,
-    title: showTitle,
+    title,
     metadata,
     images,
     content,

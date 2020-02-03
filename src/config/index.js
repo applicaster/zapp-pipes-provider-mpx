@@ -4,6 +4,7 @@ export const config = {
   },
   MPX: {
     API_BASE_URL: '',
+    URL: '',
     MEDIA_BASE_HOST: 'feed.media.theplatform.com',
     ENTERTAINMENT_BASE_HOST: 'feed.entertainment.tv.theplatform.com',
     ENDPOINTS: {
@@ -24,5 +25,6 @@ export const config = {
     baseMaxWidth: 800,
     baseMaxHeight: 500,
     baseKey: 'image_base'
-  }
+  },
+  IMAGES: undefined
 };

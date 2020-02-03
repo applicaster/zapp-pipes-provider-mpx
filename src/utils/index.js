@@ -84,19 +84,29 @@ export function createEntry(typeValue, {id, title, content, extensions, metadata
     id,
     title,
     ...metadata,
-    content,
     media,
-    extensions,
-    media_group
+    media_group,
+    content,
+    extensions
   };
 }
 
-export function setRange (url) {
-  if (url.includes('&limit=')) {
-    const feedUrl = url.slice(0, url.indexOf('&limit'));
-    return feedUrl.includes('?') ? url.replace('limit=', 'range=-') : url.replace('&limit=', '?range=-');
-  }
-  return url
+export function getSeriesIdNumber(id) {
+  return id.split('/').pop();
+}
+
+export function setRange(url, limit) {
+  const aUrl = parseUrl(url, true);
+
+   if(limit) {
+     return format({
+       protocol: aUrl.protocol,
+       hostname: aUrl.hostname,
+       pathname: aUrl.pathname,
+       query: { ...aUrl.query, 'range': `-${limit}` }
+     });
+   }
+   return url;
 }
 
 export function getPlatform (url) {
@@ -122,22 +132,25 @@ export function setFeedResponseForm (url) {
 
 export function updateParamsFromUrl(params) {
   const parameters = {...params};
-  const { url } = parameters;
+  const { url, type, limit } = parameters;
 
   try {
     const platform = getPlatform(url);
     const aUrl = parseUrl(url, true);
 
-    if(platform === 'media') {
-      config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`
-    } else {
+    config.MPX.URL = `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`;
+    parameters.mediaBaseUrl = `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`;
 
-      const arr = aUrl.pathname.split('/');
+    const arr = aUrl.pathname.split('/');
+    arr.pop();
+
+    if(type === 'show' && platform !== 'media') {
       arr.pop();
-      const path = arr.join('/');
-
-      config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
     }
+
+    const path = arr.join('/');
+
+    config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
 
     const queryParams = {...aUrl.query};
 
@@ -147,8 +160,9 @@ export function updateParamsFromUrl(params) {
       }
     });
 
+    parameters.entertainmentBaseUrl = `${aUrl.protocol}//${aUrl.host}${path}`;
     parameters.platform = platform;
-    parameters.url = setFeedResponseForm(url);
+    parameters.url = setFeedResponseForm(setRange(url, limit));
 
     return parameters;
   } catch (err) {
@@ -159,7 +173,7 @@ export function updateParamsFromUrl(params) {
 export function b64EncodeUnicode(str) {
   return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
     function toSolidBytes(match, p1) {
-      return String.fromCharCode('0x' + p1);
+      return String.fromCharCode(`0x${p1}`);
     }));
 }
 
@@ -179,16 +193,24 @@ export function getCustomFields(obj) {
   return newObj;
 }
 
-export function getUniqueItems(arr, filterField) {
+export function getUniqueItems(arr, customFieldObject, field) {
 
-  const filterFieldArr = arr.map(arrItem => arrItem[filterField]);
+  config.MPX.CUSTOM_FIELD_NAME = Object.keys(customFieldObject)[0];
+
+  const fieldName = `${config.MPX.CUSTOM_FIELD_NAME}$${field}`;
+
+  const filterFieldArr = arr.map(arrItem => arrItem[fieldName]);
   const uniqueFilteredArr = [... new Set(filterFieldArr)];
   return uniqueFilteredArr.map(showTitle => {
-    return arr.find(arrItem => arrItem[filterField] === showTitle);
+    return arr.find(arrItem => arrItem[fieldName] === showTitle);
   });
 }
 
-export function byField(fieldName, extraFieldName) {
+export function byField(field, extraField) {
+
+  const fieldName = `${config.MPX.CUSTOM_FIELD_NAME}$${field}`;
+  const extraFieldName = `${config.MPX.CUSTOM_FIELD_NAME}$${extraField}`;
+
   return (a, b) => {
     switch (true) {
       case (a[fieldName] > b[fieldName]):
@@ -210,8 +232,4 @@ export function byField(fieldName, extraFieldName) {
         return 0;
     }
   }
-}
-
-export function getShowTitle(items) {
-  return items[0][`${config.MPX.CUSTOM_FIELD_NAME}$showTitle`];
 }

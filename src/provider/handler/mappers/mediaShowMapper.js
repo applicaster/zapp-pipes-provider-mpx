@@ -2,15 +2,15 @@ import { convertDate, createEntry, createSrc, getCustomFields } from "../../../u
 import {types} from "../../../types";
 import { config } from "../../../config";
 
-export function mapMediaSeasons(seasons) {
+export function mapMediaShow(show) {
 
   const {
     id,
     guid,
+    title,
     pubDate: publishedAt,
     description: summary = '',
-    thumbnails: images,
-  } = seasons;
+  } = show;
 
   const {
     cast,
@@ -18,16 +18,15 @@ export function mapMediaSeasons(seasons) {
     genre,
     rating,
     longDescription,
-    showTitle,
-    season
-  } = getCustomFields(seasons);
+    showTitle
+  } = getCustomFields(show);
 
-  const dynamicUrl = `${config.MPX.URL}?form=cjson&byCustomValue={showTitle}{${showTitle}},{season}{${season}}`;
+  const dynamicUrl = `${config.MPX.API_BASE_URL}?form=cjson&byCustomValue={showTitle}{${showTitle}}`;
 
   const published = convertDate(publishedAt);
 
   const content = {
-    src: createSrc('episodes', dynamicUrl),
+    src: createSrc('seasons', dynamicUrl),
   };
 
   const metadata = {
@@ -45,12 +44,16 @@ export function mapMediaSeasons(seasons) {
     showTitle
   };
 
-  return createEntry(types.feed, {
-    id,
-    title: `Season ${season}`,
-    metadata,
-    images,
-    content,
-    extensions,
-  });
+  return  [
+    createEntry(types.feed, {
+      id,
+      title,
+      metadata,
+      content,
+      extensions
+    }),
+    createEntry(types.feed, {
+      content
+    })
+  ]
 }

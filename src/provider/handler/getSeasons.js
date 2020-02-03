@@ -1,39 +1,19 @@
-import {mapSeasons} from './mappers/seasonsMapper';
-import {axios} from '../../axios/axios';
-import {types} from '../../types';
-import { byField, getUniqueItems, setRange, getShowTitle } from "../../utils";
-import { mapMediaSeasons } from "./mappers/mediaSeasonsMapper";
-import { config } from "../../config";
+import { mapSeasons } from './mappers/seasonsMapper';
+import { axios } from '../../axios/axios';
+import { types } from '../../types';
+
 
 export async function getSeasons(params) {
-  let {
-    url,
-    platform
-  } = params;
-  url = setRange(url);
+  const { url } = params;
 
   try {
     const {
       data: {
-        $xmlns: customFieldObject = {},
-        title,
         entries: items = []
       }
     } = await axios.get(url);
 
-    if (platform === 'media') {
-      config.MPX.CUSTOM_FIELD_NAME = Object.keys(customFieldObject)[0];
-      let uniqueItems = getUniqueItems(items, `${config.MPX.CUSTOM_FIELD_NAME}$season`);
-      uniqueItems = uniqueItems.sort(byField(`${config.MPX.CUSTOM_FIELD_NAME}$season`));
-
-      return {
-        type: {
-          value: types.feed
-        },
-        title,
-        entry: uniqueItems.map(mapMediaSeasons)
-      };
-    }
+    const { seriesTitle: title } = items[0];
 
     return {
       type: {

@@ -1,12 +1,11 @@
 import * as R from "ramda";
-import { convertDate, createEntry, createSrc, getSeriesIdNumber } from "../../../utils";
+import { convertDate, createEntry, createSrc } from "../../../utils";
 import { types } from "../../../types";
 import { config } from "../../../config";
 
-export function mapSeries(series, apiBaseUrl) {
-
+export function mapShow(show) {
   const {
-    id,
+    id: seriesId,
     title,
     updated: updatedAt,
     pubDate: publishedAt,
@@ -16,20 +15,20 @@ export function mapSeries(series, apiBaseUrl) {
     distributionRightIds,
     guid,
     thumbnails: images
-  } = series;
+  } = show;
 
-  const seriesIdNumber = getSeriesIdNumber(id);
+  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${seriesId}&sort=${config.MPX.SORT_BY.seasons}`;
 
-  const dynamicUrl = `${apiBaseUrl}/${config.MPX.ENDPOINTS.series}/${seriesIdNumber}`;
+  config.IMAGES = images;
+
+  const content = {
+    src: createSrc('seasons', dynamicUrl),
+  };
 
   const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);
 
   const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
-
-  const content = {
-    src: createSrc('show', dynamicUrl),
-  };
 
   const metadata = {
     published,
@@ -44,12 +43,16 @@ export function mapSeries(series, apiBaseUrl) {
     credits,
   };
 
-  return createEntry(types.feed, {
-    id,
-    title,
-    metadata,
-    content,
-    images,
-    extensions,
-  });
+  return  [
+    createEntry(types.feed, {
+      id: seriesId,
+      title,
+      metadata,
+      content,
+      extensions
+    }),
+    createEntry(types.feed, {
+      content
+    })
+  ]
 }
