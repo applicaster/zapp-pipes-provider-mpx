@@ -7,7 +7,7 @@ import {getMediaShow} from './getMediaShow';
 import {getMediaEpisodes} from './getMediaEpisodes';
 import {getMediaSeasons} from './getMediaSeasons';
 import {getMediaSeries} from './getMediaSeries';
-import { getPlatform } from "../../utils";
+import {getPlatform} from "../../utils";
 
 export function getCommands(params) {
   const { url } = params;

@@ -74,5 +74,104 @@
         "input_description_image_url": ""
       }
     }
-  ]
+  ],
+  "zapp_pipes": {
+    "v2": {
+      "data_types": [
+        {
+          "label": "Series",
+          "value": "series",
+          "endpoint": "series",
+          "documentation": {
+            "link": "https://github.com/applicaster/zapp-pipes-provider-mpx/blob/develop-test/README.md",
+            "input_description": "",
+            "input_placeholder": "",
+            "input_description_image_url": ""
+          }
+        },
+        {
+          "label": "Seasons",
+          "value": "seasons",
+          "endpoint": "seasons",
+          "documentation": {
+            "link": "https://github.com/applicaster/zapp-pipes-provider-mpx/blob/develop-test/README.md",
+            "input_description": "",
+            "input_placeholder": "",
+            "input_description_image_url": ""
+          }
+        },
+        {
+          "label": "Episodes",
+          "value": "episodes",
+          "endpoint": "episodes",
+          "documentation": {
+            "link": "https://github.com/applicaster/zapp-pipes-provider-mpx/blob/develop-test/README.md",
+            "input_description": "",
+            "input_placeholder": "",
+            "input_description_image_url": ""
+          }
+        },
+        {
+          "label": "Movies",
+          "value": "movies",
+          "endpoint": "movies",
+          "documentation": {
+            "link": "https://github.com/applicaster/zapp-pipes-provider-mpx/blob/develop-test/README.md",
+            "input_description": "",
+            "input_placeholder": "",
+            "input_description_image_url": ""
+          }
+        },
+        {
+          "label": "Show",
+          "value": "show",
+          "endpoint": "show",
+          "documentation": {
+            "link": "https://github.com/applicaster/zapp-pipes-provider-mpx/blob/develop-test/README.md",
+            "input_description": "",
+            "input_placeholder": "",
+            "input_description_image_url": ""
+          }
+        }
+      ],
+      "endpoints": [
+        {
+          "name": "series",
+          "remoteUrl": "https://admin.applicaster.com/pipesv2/series/feed",
+          "contextKeys": [
+            "(String) Parameters inside the app configuration have to be sent to the external server, for Example: 'bundleIdentifier'"
+          ]
+        },
+        {
+          "name": "seasons",
+          "remoteUrl": "https://admin.applicaster.com/pipesv2/seasons/feed",
+          "contextKeys": [
+            "(String) Parameters inside the app configuration have to be sent to the external server, for Example: 'bundleIdentifier'"
+          ]
+        },
+        {
+          "name": "episodes",
+          "remoteUrl": "https://admin.applicaster.com/pipesv2/episodes/feed",
+          "contextKeys": [
+            "(String) Parameters inside the app configuration have to be sent to the external server, for Example: 'bundleIdentifier'"
+          ]
+        },
+        {
+          "name": "show",
+          "remoteUrl": "https://admin.applicaster.com/pipesv2/show/feed",
+          "contextKeys": [
+            "(String) Parameters inside the app configuration have to be sent to the external server, for Example: 'bundleIdentifier'"
+          ]
+        },
+        {
+          "name": "movies",
+          "remoteUrl": "https://admin.applicaster.com/pipesv2/movies/feed",
+          "contextKeys": [
+            "(String) Parameters inside the app configuration have to be sent to the external server, for Example: 'bundleIdentifier'"
+          ]
+        }
+      ]
+    }
+  }
 }
+

@@ -28,3 +28,5 @@ export const config = {
   },
   IMAGES: undefined
 };
+
+export const HANDLER_TYPE = ['series', 'seasons', 'episodes', 'movies', 'show'];
