@@ -1,6 +1,6 @@
 {
   "name": "@applicaster/zapp-pipes-provider-mpx-new",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "MPX datasource provider Test",
   "main": "lib/index.js",
   "scripts": {

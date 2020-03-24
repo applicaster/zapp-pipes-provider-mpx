@@ -15,7 +15,9 @@ export async function getSearchResults(params) {
         value: types.feed
       },
       title: 'Search Results',
-      entry: createEntry(types.feed, { content })
+      entry: [
+        createEntry(types.feed, { content })
+      ]
     };
   } catch (err) {
     throw err;
