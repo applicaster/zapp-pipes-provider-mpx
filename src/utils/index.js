@@ -1,14 +1,10 @@
 import moment from 'moment/moment';
 import btoa from 'btoa';
+import * as R from 'ramda';
 import { config } from '../config';
 import { types } from '../types';
 
 export function createMediaItem(images) {
-
-  if (images === undefined || images === null) {
-    return undefined;
-  }
-
   const imagesKeys = Object.keys(images);
   let baseImage = false;
   const widthArr = [];
@@ -54,14 +50,22 @@ export function createMediaItem(images) {
         return width === minWidth
       });
 
-      result[baseImageKey].key = config.IMAGE.baseKey;
+      const { width, height } = images[baseImageKey];
+      const minImageKey = `image_${width}_x_${height}`;
+
+      const res = result.find((item) => item.key === minImageKey);
+
+      res.key = config.IMAGE.baseKey;
     }
   return result;
 }
 
 export function convertDate(date, form) {
-  const d = moment(date).toDate();
-  return moment(d).format(form);
+  if(date) {
+    const d = moment(date).toDate();
+    return moment(d).format(form);
+  }
+  return '';
 }
 
 export function createEntry(typeValue, {id, title, content, extensions, metadata, images, media}) {
@@ -156,4 +160,14 @@ export function byField(field, extraField) {
         return 0;
     }
   }
+}
+
+export function validate(data) {
+  if (data && Array.isArray(data)) {
+    return data.length > 0 ? data : undefined;
+  }
+  if (data && typeof data === 'object') {
+    return R.isEmpty(data) ? undefined : data;
+  }
+  return !data ? '' : data;
 }

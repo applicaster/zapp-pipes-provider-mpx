@@ -1,20 +1,20 @@
-import * as R from "ramda";
-import { convertDate, createEntry, createSrc } from "../../../utils";
-import { types } from "../../../types";
-import { config } from "../../../config";
+import * as R from 'ramda';
+import { convertDate, createEntry, createSrc, validate } from '../../../utils';
+import { types } from '../../../types';
+import { config } from '../../../config';
 
 export function mapShow(show) {
   const {
     id: seriesId,
-    title,
-    updated: updatedAt,
-    pubDate: publishedAt,
+    title = '',
+    updated: updatedAt = '',
+    pubDate: publishedAt = '',
     description: summary = '',
-    credits,
-    tags,
-    distributionRightIds,
-    guid,
-    thumbnails: images
+    credits = [],
+    tags = [],
+    distributionRightIds = [],
+    guid = '',
+    thumbnails: images = {}
   } = show;
 
   const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${seriesId}&sort=${config.MPX.SORT_BY.seasons}`;
@@ -38,9 +38,9 @@ export function mapShow(show) {
 
   const extensions = {
     alternate_id: guid,
-    distributionRightIds,
-    genre,
-    credits,
+    distributionRightIds: validate(distributionRightIds),
+    genre: validate(genre),
+    credits: validate(credits)
   };
 
   return  [
