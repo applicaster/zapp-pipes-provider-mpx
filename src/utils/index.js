@@ -1,15 +1,10 @@
 import moment from 'moment/moment';
-import {parse as parseUrl, format} from 'url';
-import btoa from "btoa";
-import {config} from '../config';
-import {types} from '../types';
+import btoa from 'btoa';
+import * as R from 'ramda';
+import { config } from '../config';
+import { types } from '../types';
 
 export function createMediaItem(images) {
-
-  if (images === undefined || images === null) {
-    return undefined;
-  }
-
   const imagesKeys = Object.keys(images);
   let baseImage = false;
   const widthArr = [];
@@ -55,14 +50,22 @@ export function createMediaItem(images) {
         return width === minWidth
       });
 
-      result[baseImageKey].key = config.IMAGE.baseKey;
+      const { width, height } = images[baseImageKey];
+      const minImageKey = `image_${width}_x_${height}`;
+
+      const res = result.find((item) => item.key === minImageKey);
+
+      res.key = config.IMAGE.baseKey;
     }
   return result;
 }
 
 export function convertDate(date, form) {
-  const d = moment(date).toDate();
-  return moment(d).format(form);
+  if(date) {
+    const d = moment(date).toDate();
+    return moment(d).format(form);
+  }
+  return '';
 }
 
 export function createEntry(typeValue, {id, title, content, extensions, metadata, images, media}) {
@@ -93,81 +96,6 @@ export function createEntry(typeValue, {id, title, content, extensions, metadata
 
 export function getSeriesIdNumber(id) {
   return id.split('/').pop();
-}
-
-export function setRange(url, limit) {
-  const aUrl = parseUrl(url, true);
-
-   if(limit) {
-     return format({
-       protocol: aUrl.protocol,
-       hostname: aUrl.hostname,
-       pathname: aUrl.pathname,
-       query: { ...aUrl.query, 'range': `-${limit}` }
-     });
-   }
-   return url;
-}
-
-export function getPlatform (url) {
-  const aUrl = parseUrl(url, true);
-  return aUrl.host === config.MPX.MEDIA_BASE_HOST ? 'media' : 'entertainment';
-}
-
-export function setFeedResponseForm (url) {
-  const aUrl = parseUrl(url, true);
-  Object.keys(aUrl.query).forEach(key => {
-      if (key === 'form') {
-        aUrl.query[key] = 'cjson';
-      }
-  });
-
-  return format({
-    protocol: aUrl.protocol,
-    hostname: aUrl.hostname,
-    pathname: aUrl.pathname,
-    query: aUrl.query
-  });
-}
-
-export function updateParamsFromUrl(params) {
-  const parameters = {...params};
-  const { url, type, limit } = parameters;
-
-  try {
-    const platform = getPlatform(url);
-    const aUrl = parseUrl(url, true);
-
-    config.MPX.URL = `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`;
-    parameters.mediaBaseUrl = `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`;
-
-    const arr = aUrl.pathname.split('/');
-    arr.pop();
-
-    if(type === 'show' && platform !== 'media') {
-      arr.pop();
-    }
-
-    const path = arr.join('/');
-
-    config.MPX.API_BASE_URL = `${aUrl.protocol}//${aUrl.host}${path}`;
-
-    const queryParams = {...aUrl.query};
-
-    Object.keys(queryParams).forEach(key => {
-      if (!parameters[key]) {
-        parameters[key] = queryParams[key];
-      }
-    });
-
-    parameters.entertainmentBaseUrl = `${aUrl.protocol}//${aUrl.host}${path}`;
-    parameters.platform = platform;
-    parameters.url = setFeedResponseForm(setRange(url, limit));
-
-    return parameters;
-  } catch (err) {
-    throw (err)
-  }
 }
 
 export function b64EncodeUnicode(str) {
@@ -232,4 +160,14 @@ export function byField(field, extraField) {
         return 0;
     }
   }
+}
+
+export function validate(data) {
+  if (data && Array.isArray(data)) {
+    return data.length > 0 ? data : undefined;
+  }
+  if (data && typeof data === 'object') {
+    return R.isEmpty(data) ? undefined : data;
+  }
+  return !data ? '' : data;
 }

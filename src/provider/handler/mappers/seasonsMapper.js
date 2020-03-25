@@ -6,9 +6,9 @@ export function mapSeasons(seasons) {
 
   const {
     id,
-    title,
-    tvSeasonNumber,
-    guid,
+    title = '',
+    tvSeasonNumber = '',
+    guid = '',
     seriesId,
   } = seasons;
 
@@ -20,7 +20,7 @@ export function mapSeasons(seasons) {
 
   const extensions = {
     alternate_id: guid,
-    tvSeasonNumber,
+    tvSeasonNumber
   };
 
   return createEntry(types.feed, {

@@ -1,28 +1,28 @@
 import * as R from 'ramda'
-import {convertDate, createEntry} from "../../../utils";
-import {types} from "../../../types";
+import { convertDate, createEntry, validate } from "../../../utils";
+import { types } from "../../../types";
 
 
 export function mapEpisodes(episodes) {
 
   const {
-    id,
-    updated: updatedAt,
-    pubDate: publishedAt,
+    id = '',
+    updated: updatedAt = '',
+    pubDate: publishedAt = '',
     description: summary = '',
-    credits,
-    tags,
-    tvSeasonEpisodeNumber,
-    tvSeasonNumber,
+    credits = [],
+    tags = [],
+    tvSeasonEpisodeNumber = '',
+    tvSeasonNumber = '',
     media: [
       {
-        title,
-        publicUrl: src
+        title = '',
+        publicUrl: src = ''
       }
     ],
-    distributionRightIds,
-    guid,
-    thumbnails: images
+    distributionRightIds = [],
+    guid = '',
+    thumbnails: images = {}
   } = episodes;
 
   const published = convertDate(publishedAt);
@@ -43,18 +43,18 @@ export function mapEpisodes(episodes) {
 
   const extensions = {
     alternate_id: guid,
-    tvSeasonNumber: `Season ${tvSeasonNumber}`,
-    tvSeasonEpisodeNumber: `Episode ${tvSeasonEpisodeNumber}`,
-    distributionRightIds,
-    genre,
-    credits,
+    tvSeasonNumber: `Season ${tvSeasonNumber || ''}`,
+    tvSeasonEpisodeNumber: `Episode ${tvSeasonEpisodeNumber || ''}`,
+    distributionRightIds: validate(distributionRightIds),
+    genre: validate(genre),
+    credits: validate(credits),
   };
 
   return createEntry(types.video, {
     id,
     title,
     metadata,
-    images,
+    images: validate(images),
     content,
     extensions,
   });
