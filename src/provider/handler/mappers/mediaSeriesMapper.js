@@ -1,4 +1,4 @@
-import { convertDate, createEntry, createSrc, getCustomFields, getSeriesIdNumber } from "../../../utils";
+import { convertDate, createEntry, createSrc, getCustomFields, getSeriesIdNumber, validate } from "../../../utils";
 import { types } from "../../../types";
 
 export function mapMediaSeries(series, mediaBaseUrl) {
@@ -50,7 +50,7 @@ export function mapMediaSeries(series, mediaBaseUrl) {
     id,
     title,
     metadata,
-    images,
+    images: validate(images),
     content,
     extensions,
   });

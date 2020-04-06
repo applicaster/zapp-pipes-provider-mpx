@@ -1,4 +1,4 @@
-import { convertDate, createEntry, createSrc, getCustomFields } from "../../../utils";
+import { convertDate, createEntry, createSrc, getCustomFields, validate } from "../../../utils";
 import {types} from "../../../types";
 import { config } from "../../../config";
 
@@ -49,7 +49,7 @@ export function mapMediaSeasons(seasons) {
     id,
     title: `Season ${season}`,
     metadata,
-    images,
+    images: validate(images),
     content,
     extensions,
   });
