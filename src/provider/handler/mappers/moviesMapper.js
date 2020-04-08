@@ -1,26 +1,26 @@
-import * as R from "ramda";
-import { convertDate, createEntry } from "../../../utils";
-import { types } from "../../../types";
+import * as R from 'ramda';
+import { convertDate, createEntry, validate } from '../../../utils';
+import { types } from '../../../types';
 
 export function mapMovies(movies) {
 
   const {
-    id,
-    title,
-    updated: updatedAt,
-    pubDate: publishedAt,
+    id = '',
+    title = '',
+    updated: updatedAt = '',
+    pubDate: publishedAt = '',
     description: summary = '',
-    credits,
-    tags,
+    credits = [],
+    tags = [],
     media: [
       {
-        publicUrl: src,
-        availableDate: availableAtDate
+        publicUrl: src = '',
+        availableDate: availableAtDate = ''
       }
     ],
-    distributionRightIds,
-    guid,
-    thumbnails: images
+    distributionRightIds = [],
+    guid = '',
+    thumbnails: images = {}
   } = movies;
 
   const published = convertDate(publishedAt);
@@ -43,16 +43,16 @@ export function mapMovies(movies) {
   const extensions = {
     alternate_id: guid,
     availableDate,
-    distributionRightIds,
-    genre,
-    credits,
+    distributionRightIds: validate(distributionRightIds),
+    genre: validate(genre),
+    credits: validate(credits)
   };
 
   return createEntry(types.video, {
     id,
     title,
     metadata,
-    images,
+    images: validate(images),
     content,
     extensions,
   });

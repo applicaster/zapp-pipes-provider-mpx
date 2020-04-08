@@ -1,4 +1,4 @@
-import {convertDate, createEntry, getCustomFields} from "../../../utils";
+import { convertDate, createEntry, getCustomFields, validate } from "../../../utils";
 import {types} from "../../../types";
 
 export function mapMediaEpisodes(episodes) {
@@ -59,7 +59,7 @@ export function mapMediaEpisodes(episodes) {
     id: id || guid,
     title,
     metadata,
-    images,
+    images: validate(images),
     content,
     extensions
   });
