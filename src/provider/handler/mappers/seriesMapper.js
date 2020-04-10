@@ -1,10 +1,9 @@
 import * as R from 'ramda';
 import { convertDate, createEntry, createSrc, getSeriesIdNumber, validate } from '../../../utils';
 import { types } from '../../../types';
-import { config } from '../../../config';
 
 
-export function mapSeries(series) {
+export function mapSeries(series, BASE_URL, episodesPID) {
   const {
     id,
     title = '',
@@ -19,14 +18,7 @@ export function mapSeries(series) {
   } = series;
 
   const seriesIdNumber = getSeriesIdNumber(id);
-
-  const {
-    BASE_URL,
-    ACCOUNT,
-    FEED_PID
-  } = config.MPX;
-
-  const dynamicUrl = `${BASE_URL}/${ACCOUNT}/${FEED_PID}/${seriesIdNumber}`;
+  const dynamicUrl = `${BASE_URL}/${seriesIdNumber}?episodesPID=${episodesPID}`;
 
   const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);

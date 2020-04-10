@@ -1,9 +1,8 @@
 import { convertDate, createEntry, createSrc, getCustomFields, getSeriesIdNumber, validate } from '../../../utils';
 import { types } from '../../../types';
-import { config } from '../../../config';
 
 
-export function mapMediaSeries(series) {
+export function mapMediaSeries(series, BASE_URL) {
   const {
     id,
     guid,
@@ -24,13 +23,7 @@ export function mapMediaSeries(series) {
 
   const seriesIdNumber = getSeriesIdNumber(id);
 
-  const {
-    BASE_URL,
-    ACCOUNT,
-    FEED_PID
-  } = config.MPX;
-
-  const dynamicUrl = `${BASE_URL}/${ACCOUNT}/${FEED_PID}/${seriesIdNumber}`;
+  const dynamicUrl = `${BASE_URL}/${seriesIdNumber}`;
 
   const published = convertDate(publishedAt);
 

@@ -3,11 +3,6 @@ export const config = {
     name: 'mpx-test'
   },
   MPX: {
-    BASE_URL: '',
-    ACCOUNT: '',
-    EPISODES_PID: '',
-    FEED_PID: '',
-    URL: '',
     MEDIA_BASE_HOST: 'feed.media.theplatform',
     ENTERTAINMENT_BASE_HOST: 'feed.entertainment.tv.theplatform',
     CUSTOM_FIELD_NAME: '',

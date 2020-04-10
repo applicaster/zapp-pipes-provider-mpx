@@ -1,9 +1,8 @@
 import * as R from 'ramda';
 import { convertDate, createEntry, createSrc, validate } from '../../../utils';
 import { types } from '../../../types';
-import { config } from '../../../config';
 
-export function mapShow(show) {
+export function mapShow(show, BASE_URL, episodesPID) {
   const {
     id: seriesId,
     title = '',
@@ -16,7 +15,7 @@ export function mapShow(show) {
     guid = ''
   } = show;
 
-  const dynamicUrl = `${config.MPX.URL}?fields=seriesTvSeasons,title,thumbnails`;
+  const dynamicUrl = `${BASE_URL}?fields=seriesTvSeasons,title,thumbnails&episodesPID=${episodesPID}`;
 
   const content = {
     src: createSrc('seasons', dynamicUrl),

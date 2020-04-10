@@ -1,6 +1,5 @@
 import { parse as parseUrl } from 'url';
-import { config } from '../config';
-import { getPlatform, setQueryParams } from './utils';
+import { getPlatform, setQueryParams, createBaseUrl } from './utils';
 
 export function updateParamsFromUrl(params) {
   const parameters = {...params};
@@ -8,20 +7,6 @@ export function updateParamsFromUrl(params) {
 
   try {
     const aUrl = parseUrl(url, true);
-    const arr = aUrl.pathname.split('/');
-    const [x, feedIndicator, accountPID, feedPID] = arr;
-
-    config.MPX = {
-      ...config.MPX,
-      BASE_URL: `${aUrl.protocol}//${aUrl.host}/${feedIndicator}`,
-      ACCOUNT: accountPID,
-      URL: `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`,
-      FEED_PID: feedPID
-    };
-
-    if (parameters.episodesPID) {
-      config.MPX.EPISODES_PID = parameters.episodesPID;
-    }
 
     const queryParams = {...aUrl.query};
     Object.keys(queryParams).forEach(key => {
@@ -31,6 +16,7 @@ export function updateParamsFromUrl(params) {
     });
 
     parameters.platform = getPlatform(url);
+    parameters.BASE_URL = createBaseUrl(parameters);
     parameters.url = setQueryParams(parameters);
 
     return parameters;

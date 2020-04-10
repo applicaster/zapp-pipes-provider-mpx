@@ -4,7 +4,7 @@ import { getUniqueItems } from "../../utils";
 import { mapMediaSeries } from "./mappers/mediaSeriesMapper";
 
 export async function getMediaSeries(params) {
-  const { url, mediaBaseUrl } = params;
+  const { url, BASE_URL } = params;
 
   try {
     const {
@@ -22,7 +22,7 @@ export async function getMediaSeries(params) {
         value: types.feed
       },
       title,
-      entry: uniqueItems.map((item) => mapMediaSeries(item, mediaBaseUrl))
+      entry: uniqueItems.map((item) => mapMediaSeries(item, BASE_URL))
     };
 
   } catch (err) {

@@ -4,7 +4,7 @@ import { types } from '../../types';
 
 
 export async function getSeries(params) {
-  const { url } = params;
+  const { url, BASE_URL, episodesPID } = params;
 
   try {
     const {
@@ -14,12 +14,14 @@ export async function getSeries(params) {
       }
     } = await axios.get(url);
 
+    const entry = items.map((item) => mapSeries(item, BASE_URL, episodesPID));
+
     return {
       type: {
         value: types.feed
       },
       title,
-      entry: items.map(mapSeries)
+      entry
     };
   } catch (err) {
     throw err;

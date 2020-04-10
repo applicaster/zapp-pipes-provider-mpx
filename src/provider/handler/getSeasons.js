@@ -4,7 +4,7 @@ import { types } from '../../types';
 
 
 export async function getSeasons(params) {
-  const { url } = params;
+  const { url, BASE_URL } = params;
 
   try {
     const { data } = await axios.get(url);
@@ -16,7 +16,7 @@ export async function getSeasons(params) {
         value: types.feed
       },
       title: data.title,
-      entry: items.map((item) => mapSeasons(item, data.thumbnails))
+      entry: items.map((item) => mapSeasons(item, BASE_URL, data.thumbnails))
     };
   } catch (err) {
     throw err;

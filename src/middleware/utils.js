@@ -44,8 +44,37 @@ function isSearch(params) {
   return params.q && !aUrl.query.q;
 }
 
+function createBaseUrl(parameters) {
+  const {
+    url,
+    type,
+    platform,
+    episodesPID
+  } = parameters;
+  const aUrl = parseUrl(url, true);
+  const arr = aUrl.pathname.split('/');
+  const [x, feedIndicator, accountPID, feedPID] = arr;
+
+  const apiBaseUrl = `${aUrl.protocol}//${aUrl.host}/${feedIndicator}/${accountPID}`;
+
+  const entertainmentUrls = {
+    series: `${apiBaseUrl}/${feedPID}`,
+    show: `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`,
+    seasons: `${apiBaseUrl}/${episodesPID}`
+  };
+
+  const mediaUrls = {
+    series: `${apiBaseUrl}/${feedPID}`,
+    show: `${apiBaseUrl}/${feedPID}`,
+    seasons: `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`
+  };
+
+  return platform === 'media' ? mediaUrls[type] : entertainmentUrls[type];
+}
+
 export {
   setQueryParams,
   getPlatform,
-  isSearch
+  isSearch,
+  createBaseUrl
 }
