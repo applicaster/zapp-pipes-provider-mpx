@@ -1,18 +1,23 @@
-import {createEntry, createSrc} from "../../../utils";
-import {types} from "../../../types";
-import { config } from "../../../config";
+import { createEntry, createSrc, validate } from '../../../utils';
+import { types } from '../../../types';
+import { config } from '../../../config';
 
-export function mapSeasons(seasons) {
 
+export function mapSeasons(seasons, images) {
   const {
     id,
     title = '',
     tvSeasonNumber = '',
-    guid = '',
-    seriesId,
+    guid = ''
   } = seasons;
 
-  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.episodes}?bySeriesId=${seriesId}&byTvSeasonId=${id}`;
+  const {
+    BASE_URL,
+    EPISODES_PID,
+    ACCOUNT
+  } = config.MPX;
+
+  const dynamicUrl = `${BASE_URL}/${ACCOUNT}/${EPISODES_PID}?byTvSeasonId=${id}`;
 
   const content = {
     src: createSrc('episodes', dynamicUrl),
@@ -28,6 +33,6 @@ export function mapSeasons(seasons) {
     title,
     content,
     extensions,
-    images: config.IMAGES
+    images: validate(images)
   });
 }

@@ -4,7 +4,7 @@ import { types } from '../../types';
 
 
 export async function getSeries(params) {
-  const { url, entertainmentBaseUrl } = params;
+  const { url } = params;
 
   try {
     const {
@@ -19,7 +19,7 @@ export async function getSeries(params) {
         value: types.feed
       },
       title,
-      entry: items.map((item) => mapSeries(item, entertainmentBaseUrl))
+      entry: items.map(mapSeries)
     };
   } catch (err) {
     throw err;

@@ -2,11 +2,16 @@ import { parse as parseUrl, format } from 'url';
 import { config } from '../config';
 
 function updateQuery(query, limit, q) {
-  const newQuery = { ...query };
+  const newQuery = {
+    form: 'cjson'
+  };
 
-  Object.keys(newQuery).forEach(key => {
-    if (key === 'form') {
-      newQuery[key] = 'cjson';
+  Object.keys(query).forEach(key => {
+    if (key !== 'limit'
+      && key !== 'episodesPID'
+      && key !== 'form'
+    ) {
+      newQuery[key] = query[key]
     }
   });
 
@@ -28,7 +33,8 @@ function setQueryParams(params) {
 
 function getPlatform (url) {
   const aUrl = parseUrl(url, true);
-  return aUrl.host === config.MPX.MEDIA_BASE_HOST ? 'media' : 'entertainment';
+  const { MEDIA_BASE_HOST } = config.MPX;
+  return aUrl.host.includes(MEDIA_BASE_HOST) ? 'media' : 'entertainment';
 }
 
 function isSearch(params) {

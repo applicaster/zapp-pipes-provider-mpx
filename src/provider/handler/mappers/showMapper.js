@@ -13,13 +13,10 @@ export function mapShow(show) {
     credits = [],
     tags = [],
     distributionRightIds = [],
-    guid = '',
-    thumbnails: images = {}
+    guid = ''
   } = show;
 
-  const dynamicUrl = `${config.MPX.API_BASE_URL}/${config.MPX.ENDPOINTS.seasons}?bySeriesId=${seriesId}&sort=${config.MPX.SORT_BY.seasons}`;
-
-  config.IMAGES = images;
+  const dynamicUrl = `${config.MPX.URL}?fields=seriesTvSeasons,title,thumbnails`;
 
   const content = {
     src: createSrc('seasons', dynamicUrl),

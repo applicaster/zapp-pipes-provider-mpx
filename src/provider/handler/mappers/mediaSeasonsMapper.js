@@ -1,9 +1,9 @@
-import { convertDate, createEntry, createSrc, getCustomFields, validate } from "../../../utils";
-import {types} from "../../../types";
-import { config } from "../../../config";
+import { convertDate, createEntry, createSrc, getCustomFields, validate } from '../../../utils';
+import { types } from '../../../types';
+import { config } from '../../../config';
+
 
 export function mapMediaSeasons(seasons) {
-
   const {
     id,
     guid,
@@ -22,7 +22,7 @@ export function mapMediaSeasons(seasons) {
     season
   } = getCustomFields(seasons);
 
-  const dynamicUrl = `${config.MPX.URL}?form=cjson&byCustomValue={showTitle}{${showTitle}},{season}{${season}}`;
+  const dynamicUrl = `${config.MPX.URL}?byCustomValue={showTitle}{${showTitle}},{season}{${season}}`;
 
   const published = convertDate(publishedAt);
 
