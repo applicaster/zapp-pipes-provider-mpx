@@ -1,13 +1,13 @@
 {
   "name": "@applicaster/zapp-pipes-provider-mpx-new",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "MPX datasource provider Test",
   "main": "lib/index.js",
   "scripts": {
     "test": "node_modules/.bin/jest",
     "test:integration": "node_modules/.bin/jest integration.test.js",
-    "start": "node_modules/.bin/nodemon -L --watch . server.js --exec node_modules/.bin/babel-node --inspect",
-    "start:hot": "node_modules/.bin/babel-node webpack-hot.js --inspect=0.0.0.0:9229",
+    "start": "node_modules/.bin/nodemon -L --watch . server.js --exec node_modules/.bin/babel-node",
+    "start:hot": "node_modules/.bin/babel-node webpack-hot.js",
     "build": "rm -rf lib && NODE_ENV=production node_modules/.bin/babel src -d lib",
     "prepublish": "npm run build"
   },
