@@ -4,23 +4,19 @@ import { types } from '../../types';
 
 
 export async function getSeasons(params) {
-  const { url } = params;
+  const { url, BASE_URL } = params;
 
   try {
-    const {
-      data: {
-        entries: items = []
-      }
-    } = await axios.get(url);
+    const { data } = await axios.get(url);
 
-    const { seriesTitle: title } = items[0];
+    const items = data.entries ? data.entries : data.seriesTvSeasons;
 
     return {
       type: {
         value: types.feed
       },
-      title,
-      entry: items.map(mapSeasons)
+      title: data.title,
+      entry: items.map((item) => mapSeasons(item, BASE_URL, data.thumbnails))
     };
   } catch (err) {
     throw err;

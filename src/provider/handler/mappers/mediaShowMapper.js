@@ -1,9 +1,8 @@
 import { convertDate, createEntry, createSrc, getCustomFields } from "../../../utils";
 import {types} from "../../../types";
-import { config } from "../../../config";
 
-export function mapMediaShow(show) {
 
+export function mapMediaShow(show, BASE_URL) {
   const {
     id,
     guid,
@@ -21,7 +20,7 @@ export function mapMediaShow(show) {
     showTitle
   } = getCustomFields(show);
 
-  const dynamicUrl = `${config.MPX.API_BASE_URL}?form=cjson&byCustomValue={showTitle}{${showTitle}}`;
+  const dynamicUrl = `${BASE_URL}?byCustomValue={showTitle}{${showTitle}}`;
 
   const published = convertDate(publishedAt);
 

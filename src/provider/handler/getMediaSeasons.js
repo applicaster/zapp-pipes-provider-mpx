@@ -4,7 +4,7 @@ import { byField, getUniqueItems } from "../../utils";
 import { mapMediaSeasons } from "./mappers/mediaSeasonsMapper";
 
 export async function getMediaSeasons(params) {
-  const { url } = params;
+  const { url, BASE_URL } = params;
 
   try {
     const {
@@ -21,7 +21,7 @@ export async function getMediaSeasons(params) {
         type: {
           value: types.feed
         },
-        entry: uniqueItems.map(mapMediaSeasons)
+        entry: uniqueItems.map((item) => mapMediaSeasons(item, BASE_URL))
       };
 
   } catch (err) {

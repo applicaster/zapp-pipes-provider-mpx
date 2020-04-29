@@ -10,15 +10,16 @@ export function mapMovies(movies) {
     updated: updatedAt = '',
     pubDate: publishedAt = '',
     description: summary = '',
-    credits = [],
+    credits: creditsArr = [],
     tags = [],
     media: [
       {
         publicUrl: src = '',
-        availableDate: availableAtDate = ''
+        availableDate: availableAtDate = '',
+        restrictionId = ''
       }
     ],
-    distributionRightIds = [],
+    distributionRightIds: distributionIds = [],
     guid = '',
     thumbnails: images = {}
   } = movies;
@@ -27,7 +28,10 @@ export function mapMovies(movies) {
   const updated = convertDate(updatedAt);
   const availableDate = convertDate(availableAtDate);
 
-  const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
+  const genre = validate(R.filter(R.propEq('scheme', 'Genre'))(tags));
+  const distributionRightIds = validate(distributionIds);
+  const credits = validate(creditsArr);
+  const requires_authentication = restrictionId ? Boolean(restrictionId) : undefined;
 
   const content = {
     type: 'video/hls',
@@ -43,9 +47,10 @@ export function mapMovies(movies) {
   const extensions = {
     alternate_id: guid,
     availableDate,
-    distributionRightIds: validate(distributionRightIds),
-    genre: validate(genre),
-    credits: validate(credits)
+    distributionRightIds,
+    genre,
+    credits,
+    requires_authentication
   };
 
   return createEntry(types.video, {
