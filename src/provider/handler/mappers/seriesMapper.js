@@ -18,7 +18,7 @@ export function mapSeries(series, BASE_URL, episodesPID) {
   } = series;
 
   const seriesIdNumber = getSeriesIdNumber(id);
-  const dynamicUrl = `${BASE_URL}/${seriesIdNumber}?episodesPID=${episodesPID}`;
+  const dynamicUrl = `${BASE_URL}/${seriesIdNumber}?fields=seriesTvSeasons&episodesPID=${episodesPID}`;
 
   const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);
@@ -28,7 +28,7 @@ export function mapSeries(series, BASE_URL, episodesPID) {
   const credits = validate(creditsArr);
 
   const content = {
-    src: createSrc('show', dynamicUrl)
+    src: createSrc('seasons', dynamicUrl)
   };
 
   const metadata = {

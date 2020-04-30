@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import { convertDate, createEntry, createSrc, validate } from '../../../utils';
 import { types } from '../../../types';
 
-export function mapShow(show, BASE_URL, episodesPID) {
+export function mapShow(show, BASE_URL, episodesPID, seasonId, url) {
   const {
     id: seriesId,
     title = '',
@@ -15,10 +15,11 @@ export function mapShow(show, BASE_URL, episodesPID) {
     guid = ''
   } = show;
 
-  const dynamicUrl = `${BASE_URL}?fields=seriesTvSeasons,title,thumbnails&episodesPID=${episodesPID}`;
+  const dynamicUrlEpisodes = `${BASE_URL}?byTvSeasonId=${seasonId}`;
+  const dynamicUrlSeries = url;
 
   const content = {
-    src: createSrc('seasons', dynamicUrl),
+    src: createSrc('episodes', dynamicUrlEpisodes),
   };
 
   const published = convertDate(publishedAt);
@@ -46,7 +47,9 @@ export function mapShow(show, BASE_URL, episodesPID) {
       id: seriesId,
       title,
       metadata,
-      content,
+      content: {
+        src: createSrc('series', dynamicUrlSeries),
+      },
       extensions
     }),
     createEntry(types.feed, {

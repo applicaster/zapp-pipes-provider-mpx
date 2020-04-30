@@ -10,6 +10,7 @@ function updateQuery(query, limit, q) {
     if (key !== 'limit'
       && key !== 'episodesPID'
       && key !== 'form'
+      && key !== 'seasonId'
     ) {
       newQuery[key] = query[key]
     }
@@ -59,8 +60,8 @@ function createBaseUrl(parameters) {
 
   const entertainmentUrls = {
     series: `${apiBaseUrl}/${feedPID}`,
-    show: `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`,
-    seasons: `${apiBaseUrl}/${episodesPID}`
+    show: `${apiBaseUrl}/${episodesPID}`,
+    seasons: `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`
   };
 
   const mediaUrls = {

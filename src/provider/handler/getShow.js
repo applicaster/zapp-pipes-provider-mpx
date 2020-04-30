@@ -3,7 +3,7 @@ import { types } from '../../types';
 import { mapShow } from './mappers/showMapper';
 
 export async function getShow(params) {
-  const { url, BASE_URL, episodesPID } = params;
+  const { url, BASE_URL, episodesPID, seasonId } = params;
 
   try {
     const { data: item } = await axios.get(url);
@@ -12,7 +12,7 @@ export async function getShow(params) {
       type: {
         value: types.feed
       },
-      entry: mapShow(item, BASE_URL, episodesPID)
+      entry: mapShow(item, BASE_URL, episodesPID, seasonId, url)
     }
 
   } catch (err) {

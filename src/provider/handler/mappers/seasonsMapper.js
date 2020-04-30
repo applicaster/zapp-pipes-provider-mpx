@@ -1,8 +1,8 @@
-import { createEntry, createSrc, validate } from '../../../utils';
+import { createEntry, createSrc } from '../../../utils';
 import { types } from '../../../types';
 
 
-export function mapSeasons(seasons, BASE_URL, images) {
+export function mapSeasons(seasons, BASE_URL, episodesPID) {
   const {
     id,
     title = '',
@@ -10,10 +10,10 @@ export function mapSeasons(seasons, BASE_URL, images) {
     guid = ''
   } = seasons;
 
-  const dynamicUrl = `${BASE_URL}?byTvSeasonId=${id}`;
+  const dynamicUrl = `${BASE_URL}?seasonId=${id}&episodesPID=${episodesPID}`;
 
   const content = {
-    src: createSrc('episodes', dynamicUrl),
+    src: createSrc('show', dynamicUrl),
   };
 
   const extensions = {
@@ -25,7 +25,6 @@ export function mapSeasons(seasons, BASE_URL, images) {
     id,
     title,
     content,
-    extensions,
-    images: validate(images)
+    extensions
   });
 }
