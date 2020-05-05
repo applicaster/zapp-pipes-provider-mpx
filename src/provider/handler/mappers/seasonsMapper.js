@@ -1,30 +1,51 @@
-import { createEntry, createSrc } from '../../../utils';
+import * as R from 'ramda';
+import { convertDate, createEntry, createSrc, validate } from '../../../utils';
 import { types } from '../../../types';
 
-
-export function mapSeasons(seasons, BASE_URL, episodesPID) {
+export function mapSeasons(season, BASE_URL, episodesPID, seasonId, seriesUrl) {
   const {
-    id,
+    id: seriesId,
     title = '',
-    tvSeasonNumber = '',
+    updated: updatedAt = '',
+    pubDate: publishedAt = '',
+    description: summary = '',
+    credits: creditsArr = [],
+    tags = [],
+    distributionRightIds: distributionIds = [],
     guid = ''
-  } = seasons;
+  } = season;
 
-  const dynamicUrl = `${BASE_URL}?seasonId=${id}&episodesPID=${episodesPID}`;
+  const dynamicUrlEpisodes = `${BASE_URL}?byTvSeasonId=${seasonId}&seriesUrl=${seriesUrl}`;
 
   const content = {
-    src: createSrc('show', dynamicUrl),
+    src: createSrc('season', dynamicUrlEpisodes),
+  };
+
+  const published = convertDate(publishedAt);
+  const updated = convertDate(updatedAt);
+
+  const genre = validate(R.filter(R.propEq('scheme', 'Genre'))(tags));
+  const distributionRightIds = validate(distributionIds);
+  const credits = validate(creditsArr);
+
+  const metadata = {
+    published,
+    updated,
+    summary,
   };
 
   const extensions = {
     alternate_id: guid,
-    tvSeasonNumber
+    distributionRightIds,
+    genre,
+    credits
   };
 
   return createEntry(types.feed, {
-    id,
+    id: seriesId,
     title,
+    metadata,
     content,
     extensions
-  });
+  })
 }

@@ -28,7 +28,7 @@ export function mapSeries(series, BASE_URL, episodesPID) {
   const credits = validate(creditsArr);
 
   const content = {
-    src: createSrc('seasons', dynamicUrl)
+    src: createSrc('show', dynamicUrl)
   };
 
   const metadata = {

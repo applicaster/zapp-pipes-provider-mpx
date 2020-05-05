@@ -1,12 +1,13 @@
 import * as R from 'ramda'
-import { convertDate, createEntry, validate } from "../../../utils";
-import { types } from "../../../types";
+import { convertDate, createEntry, validate } from '../../../utils';
+import { types } from '../../../types';
 
 
 export function mapEpisodes(episodes) {
 
   const {
     id = '',
+    title: feedTitle = '',
     updated: updatedAt = '',
     pubDate: publishedAt = '',
     description: summary = '',
@@ -17,10 +18,10 @@ export function mapEpisodes(episodes) {
     media: [
       {
         title = '',
-        publicUrl: src = '',
+        publicUrl: src = null,
         restrictionId = ''
-      }
-    ],
+      } = {}
+    ] = [],
     distributionRightIds: distributionIds = [],
     guid = '',
     thumbnails: images = {}
@@ -57,7 +58,7 @@ export function mapEpisodes(episodes) {
 
   return createEntry(types.video, {
     id,
-    title,
+    title: src ? title : feedTitle,
     metadata,
     images: validate(images),
     content,
