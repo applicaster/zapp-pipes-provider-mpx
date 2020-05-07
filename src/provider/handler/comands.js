@@ -1,12 +1,10 @@
 import { getSeries } from './getSeries';
-import { getSeasons } from './getSeasons';
+import { getShow } from './getShow';
 import { getEpisodes } from './getEpisodes';
 import { getMovies } from './getMovies';
-import { getShow } from './getShow';
-import { getMediaShow } from './getMediaShow';
+import { getSeasons } from './getSeasons';
 import { getMediaEpisodes } from './getMediaEpisodes';
-import { getMediaSeasons } from './getMediaSeasons';
-import { getMediaSeries } from './getMediaSeries';
+import { getSeason } from './getSeason';
 import { getPlatform } from '../../middleware/utils';
 
 export function getCommands(params) {
@@ -14,10 +12,11 @@ export function getCommands(params) {
   const platform = getPlatform(url);
 
   return {
-    series: platform !== 'media' ? getSeries : getMediaSeries,
-    seasons: platform !== 'media' ? getSeasons : getMediaSeasons,
+    series: getSeries,
+    show: getShow,
     episodes: platform !== 'media' ? getEpisodes : getMediaEpisodes,
     movies: getMovies,
-    show: platform !== 'media' ? getShow : getMediaShow
+    seasons: getSeasons,
+    season: getSeason
   };
 }

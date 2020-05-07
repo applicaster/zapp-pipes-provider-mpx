@@ -1,23 +1,22 @@
-import { mapSeasons } from './mappers/seasonsMapper';
 import { axios } from '../../axios/axios';
 import { types } from '../../types';
-
+import { mapSeasons } from './mappers/seasonsMapper';
 
 export async function getSeasons(params) {
-  const { url, BASE_URL } = params;
+  const { url, BASE_URL, episodesPID, seasonId } = params;
 
   try {
-    const { data } = await axios.get(url);
-
-    const items = data.entries ? data.entries : data.seriesTvSeasons;
+    const { data: item } = await axios.get(url);
 
     return {
       type: {
         value: types.feed
       },
-      title: data.title,
-      entry: items.map((item) => mapSeasons(item, BASE_URL, data.thumbnails))
-    };
+      entry: [
+          mapSeasons(item, BASE_URL, episodesPID, seasonId, url)
+        ]
+    }
+
   } catch (err) {
     throw err;
   }
