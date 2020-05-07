@@ -50,7 +50,6 @@ function createBaseUrl(parameters) {
   const {
     url,
     type,
-    platform,
     episodesPID
   } = parameters;
   const aUrl = parseUrl(url, true);
@@ -65,13 +64,7 @@ function createBaseUrl(parameters) {
     show: `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`
   };
 
-  const mediaUrls = {
-    series: `${apiBaseUrl}/${feedPID}`,
-    seasons: `${apiBaseUrl}/${feedPID}`,
-    show: `${aUrl.protocol}//${aUrl.host}${aUrl.pathname}`
-  };
-
-  return platform === 'media' ? mediaUrls[type] : entertainmentUrls[type];
+  return entertainmentUrls[type];
 }
 
 export {
