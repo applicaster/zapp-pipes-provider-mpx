@@ -1,6 +1,6 @@
 export const config = {
   PROVIDER: {
-    name: 'mpx-test'
+    name: 'mpx'
   },
   MPX: {
     MEDIA_BASE_HOST: 'feed.media.theplatform',
