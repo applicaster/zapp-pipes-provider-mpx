@@ -3,21 +3,12 @@ export const config = {
     name: 'mpx'
   },
   MPX: {
-    API_BASE_URL: '',
-    URL: '',
-    MEDIA_BASE_HOST: 'feed.media.theplatform.com',
-    ENTERTAINMENT_BASE_HOST: 'feed.entertainment.tv.theplatform.com',
-    ENDPOINTS: {
-      series: 'aplcstr30-series',
-      seasons: 'aplcstr30-tv-seasons',
-      episodes: 'aplcstr30-episodes',
-      movies: 'aplcstr30-movies'
-    },
+    MEDIA_BASE_HOST: 'feed.media.theplatform',
+    ENTERTAINMENT_BASE_HOST: 'feed.entertainment.tv.theplatform',
     CUSTOM_FIELD_NAME: '',
     SORT_BY: {
       seasons: 'tvSeasonNumber'
-    },
-    LIMIT: 100
+    }
   },
   IMAGE: {
     baseMinWidth: 700,
@@ -25,6 +16,5 @@ export const config = {
     baseMaxWidth: 800,
     baseMaxHeight: 500,
     baseKey: 'image_base'
-  },
-  IMAGES: undefined
+  }
 };

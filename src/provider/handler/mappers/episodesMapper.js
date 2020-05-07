@@ -1,34 +1,34 @@
 import * as R from 'ramda'
-import { convertDate, createEntry, validate } from "../../../utils";
-import { types } from "../../../types";
+import { convertDate, createEntry, validate } from '../../../utils';
+import { types } from '../../../types';
 
 
 export function mapEpisodes(episodes) {
 
   const {
     id = '',
+    title: feedTitle = '',
     updated: updatedAt = '',
     pubDate: publishedAt = '',
     description: summary = '',
-    credits = [],
+    credits: creditsArr = [],
     tags = [],
     tvSeasonEpisodeNumber = '',
     tvSeasonNumber = '',
     media: [
       {
         title = '',
-        publicUrl: src = ''
-      }
-    ],
-    distributionRightIds = [],
+        publicUrl: src = null,
+        restrictionId = ''
+      } = {}
+    ] = [],
+    distributionRightIds: distributionIds = [],
     guid = '',
     thumbnails: images = {}
   } = episodes;
 
   const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);
-
-  const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
 
   const content = {
     type: 'video/hls',
@@ -41,18 +41,24 @@ export function mapEpisodes(episodes) {
     summary,
   };
 
+  const distributionRightIds = validate(distributionIds);
+  const genre = validate(R.filter(R.propEq('scheme', 'Genre'))(tags));
+  const credits = validate(creditsArr);
+  const requires_authentication = restrictionId ? Boolean(restrictionId) : undefined;
+
   const extensions = {
     alternate_id: guid,
     tvSeasonNumber: `Season ${tvSeasonNumber || ''}`,
     tvSeasonEpisodeNumber: `Episode ${tvSeasonEpisodeNumber || ''}`,
-    distributionRightIds: validate(distributionRightIds),
-    genre: validate(genre),
-    credits: validate(credits),
+    distributionRightIds,
+    genre,
+    credits,
+    requires_authentication
   };
 
   return createEntry(types.video, {
     id,
-    title,
+    title: src ? title : feedTitle,
     metadata,
     images: validate(images),
     content,

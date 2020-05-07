@@ -1,31 +1,31 @@
 import * as R from 'ramda';
 import { convertDate, createEntry, createSrc, getSeriesIdNumber, validate } from '../../../utils';
 import { types } from '../../../types';
-import { config } from '../../../config';
 
-export function mapSeries(series, apiBaseUrl) {
 
+export function mapSeries(series, BASE_URL, episodesPID) {
   const {
     id,
     title = '',
     updated: updatedAt = '',
     pubDate: publishedAt = '',
     description: summary = '',
-    credits = [],
+    credits: creditsArr = [],
     tags = [],
-    distributionRightIds = [],
+    distributionRightIds: distributionIds = [],
     guid = '',
     thumbnails: images = {}
   } = series;
 
   const seriesIdNumber = getSeriesIdNumber(id);
-
-  const dynamicUrl = `${apiBaseUrl}/${config.MPX.ENDPOINTS.series}/${seriesIdNumber}`;
+  const dynamicUrl = `${BASE_URL}/${seriesIdNumber}?fields=seriesTvSeasons&episodesPID=${episodesPID}`;
 
   const published = convertDate(publishedAt);
   const updated = convertDate(updatedAt);
 
-  const genre = R.filter(R.propEq('scheme', 'Genre'))(tags);
+  const genre = validate(R.filter(R.propEq('scheme', 'Genre'))(tags));
+  const distributionRightIds = validate(distributionIds);
+  const credits = validate(creditsArr);
 
   const content = {
     src: createSrc('show', dynamicUrl)
@@ -39,9 +39,9 @@ export function mapSeries(series, apiBaseUrl) {
 
   const extensions = {
     alternate_id: guid,
-    distributionRightIds: validate(distributionRightIds),
-    genre: validate(genre),
-    credits: validate(credits)
+    distributionRightIds,
+    genre,
+    credits
   };
 
   return createEntry(types.feed, {
