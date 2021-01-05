@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/applicaster/zapp-pipes-provider-mpx.git#readme",
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "btoa": "^1.2.1",
     "moment": "^2.24.0"
   },
